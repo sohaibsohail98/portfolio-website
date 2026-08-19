@@ -36,6 +36,13 @@ check('lang attribute', /<html lang="en"/.test(html));
 check('reduced-motion respected', html.includes('prefers-reduced-motion'));
 check('theme toggle labelled', /aria-label="Toggle colour theme"/.test(html));
 
+// The build concatenates JS files. A bad split once sliced through a string
+// literal and shipped an unterminated quote, which killed the whole bundle
+// while the page still looked fine above the fold. Parse it every time.
+const js = (html.match(/<script>([\s\S]*?)<\/script>/g) || []).pop()?.replace(/<\/?script>/g, '') || '';
+try { new Function(js); } catch (e) { fails.push(`bundle has a syntax error: ${e.message}`); }
+check('bundle is non-trivial', js.length > 5000);
+
 // performance budget
 const kb = Buffer.byteLength(html) / 1024;
 check(`page under 90KB (is ${kb.toFixed(1)}KB)`, kb < 90);

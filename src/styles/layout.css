@@ -20,13 +20,13 @@ nav.on{border-bottom-color:var(--hair)}
 #tt:hover{color:var(--ink);border-color:var(--ink)}
 h1 .ser{font-size:1.07em;letter-spacing:-.018em;color:var(--acc)}
 /* sections */
-section{padding:66px 0;border-top:1px solid var(--hair)}
+section{padding:56px 0;border-top:1px solid var(--hair)}
 .reveal{opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
-.shead{display:flex;align-items:baseline;gap:16px;margin-bottom:12px}
+.shead{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}
 .shead h2{font-size:clamp(22px,2.9vw,29px);letter-spacing:-.032em;font-weight:600;margin:0}
 .shead .num{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--low);flex:0 0 auto}
-.sintro{margin:0 0 30px;font-size:15.5px;color:var(--mid);max-width:62ch;line-height:1.6}
+.sintro{margin:0 0 26px;font-size:15.5px;color:var(--mid);max-width:62ch;line-height:1.6}
 /* context footer */
 .ctxft{border-top:1px solid var(--hair);background:var(--surf2)}
 footer{border-top:1px solid var(--hair);padding:60px 0 68px}
