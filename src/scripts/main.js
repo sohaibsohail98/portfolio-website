@@ -1,5 +1,3 @@
-').replace(/</g,'&lt;');
-
 $('#chips').onclick=e=>{const c=e.target.closest('.chip');c&&run(c.dataset.k)};
 $('#ctxbtn').onclick=e=>{const o=$('#ctxbtn').getAttribute('aria-expanded')==='true';
   $('#ctxbtn').setAttribute('aria-expanded',String(!o));$('#ctxpanel').classList.toggle('open',!o)};

@@ -1,6 +1,6 @@
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const rd=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const esc=s=>String(s).replace(/&/g,'&amp;
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
 /* ── repos ── */
 const REPOS={
