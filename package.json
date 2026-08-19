@@ -6,6 +6,6 @@
     "build": "node build.mjs",
     "check": "node build.mjs && node check.mjs",
     "dev": "node build.mjs && node --watch-path=src build.mjs & npx --yes serve dist -l 8080",
-    "deploy": "npm run check && npx --yes wrangler@latest pages deploy dist --project-name=portfolio-website"
+    "deploy": "npm run check && npx --yes wrangler@latest pages deploy dist --project-name=sohaibsohail"
   }
 }

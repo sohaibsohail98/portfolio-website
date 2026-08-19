@@ -2,7 +2,7 @@
 
 Personal site for Sohaib Sohail — Cloud & AI Platform Engineer.
 
-**Production:** https://portfolio-website-bef.pages.dev (Cloudflare Pages)
+**Production:** https://sohaibsohail.pages.dev (Cloudflare Pages)
 
 ## Why it's built this way
 
