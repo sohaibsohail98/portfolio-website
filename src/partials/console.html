@@ -1,0 +1,38 @@
+<section id="proof"><div class="wrap reveal">
+  <div class="shead"><span class="num">01</span><h2>Ask the agent</h2></div>
+  <p class="sintro">A walkthrough of how I&rsquo;d answer the usual questions, shaped like the agent traces I work with daily. The trace below is <strong>scripted, not live</strong>. The real thing is deployed and you can use it: <a href="https://sre-agent-sohaibsohail.workers.dev" target="_blank" rel="noopener"><strong>the SRE agent</strong></a> streams genuine tool calls over SSE as it investigates, and <a href="https://mcp-inspector.sohaibsohail.workers.dev" target="_blank" rel="noopener"><strong>the MCP context inspector</strong></a> reports measured token counts rather than the illustrative ones below.</p>
+
+  <div class="console">
+    <div class="cbar">
+      <span class="t mono">portfolio-agent</span>
+      <span class="sim">Scripted walkthrough</span>
+      <a class="real" href="https://sre-agent-sohaibsohail.workers.dev" target="_blank" rel="noopener">Open the live agent →</a>
+    </div>
+
+    <div class="qbar">
+      <span class="lg">Try one</span>
+      <div class="qrow" id="chips"></div>
+    </div>
+
+    <div class="cbody">
+      <div class="asked"><span class="you mono">YOU</span><span class="qt" id="qt">—</span></div>
+      <div class="trace" id="trace" aria-hidden="true"></div>
+      <div class="ans" id="ans" aria-live="polite"></div>
+    </div>
+
+    <div class="ctxft">
+      <button class="ctxbtn" id="ctxbtn" aria-expanded="false" aria-controls="ctxpanel">
+        <span class="cv2" id="ctxteaser">Inspect what reached the model</span>
+        <span class="cg"><span class="mini" id="ctxmini" aria-hidden="true"></span><span class="arw" aria-hidden="true">⌄</span></span>
+      </button>
+      <div class="ctxpanel" id="ctxpanel">
+        <div class="ctxin">
+          <p class="intro">For the engineers: this is a miniature of the Context Window Explorer from <a href="https://github.com/sohaibsohail98/mcp-context-inspector" target="_blank" rel="noopener">mcp-context-inspector</a>, a pip-installable MCP server I built because most agent tooling re-displays data your interface already had, rather than the part nobody renders. Figures below are illustrative — <a href="https://mcp-inspector.sohaibsohail.workers.dev" target="_blank" rel="noopener">the deployed version</a> reports measured counts against your own session.</p>
+          <div class="cbarw" id="cbar"></div>
+          <div class="ckey" id="ckey"></div>
+          <div class="cdet mono" id="cdet" hidden></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>

@@ -1,0 +1,61 @@
+name: Deploy to Cloud Run (optional)
+
+# Manual only. Cloudflare Pages is the primary host; this exists to prove the
+# container path works and to keep the option open. Uses Workload Identity
+# Federation rather than a service account key, because long-lived JSON keys in
+# CI secrets are the thing that ends up in a breach writeup.
+on:
+  workflow_dispatch:
+    inputs:
+      region:
+        description: Cloud Run region
+        default: europe-west2
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  SERVICE: portfolio-website
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Build and push to Artifact Registry
+        run: |
+          REPO="${{ secrets.GCP_REGION_HOST }}/${{ secrets.GCP_PROJECT_ID }}/web/${SERVICE}"
+          gcloud auth configure-docker "${{ secrets.GCP_REGION_HOST }}" --quiet
+          docker build -t "$REPO:${GITHUB_SHA::7}" -t "$REPO:latest" .
+          docker push "$REPO:${GITHUB_SHA::7}"
+          docker push "$REPO:latest"
+          echo "IMAGE=$REPO:${GITHUB_SHA::7}" >> $GITHUB_ENV
+
+      - name: Deploy
+        run: |
+          gcloud run deploy "$SERVICE" \
+            --image "$IMAGE" \
+            --region "${{ inputs.region }}" \
+            --platform managed \
+            --allow-unauthenticated \
+            --port 8080 \
+            --cpu 1 --memory 256Mi \
+            --min-instances 0 --max-instances 4 \
+            --concurrency 200 \
+            --set-env-vars "COMMIT=${GITHUB_SHA::7}"
+
+      - name: Smoke test
+        run: |
+          URL=$(gcloud run services describe "$SERVICE" --region "${{ inputs.region }}" --format='value(status.url)')
+          echo "deployed: $URL"
+          curl -fsS "$URL/healthz" && curl -fsS "$URL" | grep -q "AI products" && echo "smoke test passed"

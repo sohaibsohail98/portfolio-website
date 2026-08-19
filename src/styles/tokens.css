@@ -1,0 +1,15 @@
+/* ── Palette: deliberately NOT near-black + acid green.
+   That look is the most saturated cliché in DevOps/AI portfolios, so this goes
+   editorial-paper + ink + electric indigo instead, with dark as the toggle. ── */
+:root{
+  --paper:#F7F5F1; --surf:#FFFFFF; --surf2:#EFECE5; --hair:rgba(22,21,26,.11); --hair2:rgba(22,21,26,.2);
+  --ink:#16151A; --mid:#54515C; --low:#807C88;
+  --acc:#3A2FE0; --accw:rgba(58,47,224,.07); --add:#0F6B42; --addw:rgba(15,107,66,.09);
+  --del:#A83A24; --delw:rgba(168,58,36,.08); --warm:#8A5A16; --live:#0F6B42;
+}
+html[data-theme="dark"]{
+  --paper:#101017; --surf:#17171F; --surf2:#1D1D27; --hair:rgba(255,255,255,.09); --hair2:rgba(255,255,255,.18);
+  --ink:#F0EEE9; --mid:#A9A5B2; --low:#767282;
+  --acc:#9D96FF; --accw:rgba(157,150,255,.1); --add:#5BD394; --addw:rgba(91,211,148,.11);
+  --del:#FF9077; --delw:rgba(255,144,119,.11); --warm:#E5B978; --live:#5BD394;
+}

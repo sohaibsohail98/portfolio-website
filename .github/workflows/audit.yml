@@ -1,0 +1,52 @@
+name: Audit
+
+# Lighthouse against the real deployed URL, not a local file. Runs after a
+# successful deploy to main, and weekly so link rot and regressions surface
+# without anyone remembering to look.
+on:
+  workflow_run:
+    workflows: [Deploy]
+    types: [completed]
+    branches: [main]
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: https://portfolio-website.pages.dev/
+          budgetPath: ./.lighthouse-budget.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # The page claims two demos are live. If either worker goes down, the
+      # claim becomes false, so this fails loudly rather than quietly.
+      - name: Check live demo links resolve
+        run: |
+          fail=0
+          for url in \
+            https://sre-agent-sohaibsohail.workers.dev \
+            https://mcp-inspector.sohaibsohail.workers.dev \
+            https://github.com/sohaibsohail98/sre-investigation-agent \
+            https://github.com/sohaibsohail98/mcp-context-inspector
+          do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 20 "$url" || echo 000)
+            if [ "$code" -ge 400 ] || [ "$code" = "000" ]; then
+              echo "::error::$url returned $code — the page claims this is live"
+              fail=1
+            else
+              echo "ok  $code  $url"
+            fi
+          done
+          exit $fail
