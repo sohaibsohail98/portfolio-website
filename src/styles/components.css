@@ -201,3 +201,16 @@ pre.out .g{color:var(--add)}
   .hmeta div:last-child{border-bottom:0}
   .hmeta .v{flex:0 0 84px}
 }
+
+/* Writing rows: title with a one-line summary underneath, read time on the right. */
+.wrow{align-items:flex-start;gap:16px}
+.wt{display:block;font-weight:500}
+.wt em{display:block;font-style:normal;font-weight:400;font-size:13.5px;color:var(--low);
+  line-height:1.5;margin-top:5px;max-width:62ch}
+.wr{font-size:11px;color:var(--low);flex:0 0 auto;padding-top:3px}
+.wrow .ar{flex:0 0 auto;color:var(--low);padding-top:2px}
+.wrow:hover .ar{color:var(--acc)}
+.wall{display:inline-block;margin-top:18px;font-size:12.5px;color:var(--acc);text-decoration:none;
+  border-bottom:1px solid transparent}
+.wall:hover{border-bottom-color:var(--acc)}
+@media(max-width:640px){.wrow{flex-wrap:wrap;gap:4px 14px}.wt{flex-basis:100%}.wr{order:3}}
