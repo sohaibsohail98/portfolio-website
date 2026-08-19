@@ -20,18 +20,17 @@ h1{font-size:clamp(34px,5.6vw,62px);line-height:1.05;letter-spacing:-.04em;font-
 .btn:hover{opacity:.86}
 .btn.g{background:none;color:var(--ink)}
 .btn.g:hover{background:var(--surf2);opacity:1}
-.hmeta{display:flex;flex-wrap:wrap;margin-top:44px;border-top:1px solid var(--hair)}
-.hmeta div{flex:1 1 148px;padding:19px 20px 19px 0;border-right:1px solid var(--hair)}
-.hmeta div:last-child{border-right:0}
-.hmeta .v{font-size:27px;font-weight:600;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums}
-.hmeta .v em{font-style:normal;font-size:.46em;color:var(--low);font-weight:400}
-.hmeta .k{font-size:12.5px;color:var(--low);margin-top:7px;line-height:1.4}
+
+
+
+
+
+
 @media(max-width:680px){
   header{padding:52px 0 44px}
-  .hmeta div{flex-basis:100%;border-right:0;border-bottom:1px solid var(--hair);padding:13px 0;
-    display:flex;align-items:baseline;gap:14px}
-  .hmeta div:last-child{border-bottom:0}
-  .hmeta .v{flex:0 0 88px}.hmeta .k{margin-top:0}
+  
+  
+  
 }
 /* console */
 .console{border:1px solid var(--hair);border-radius:16px;background:var(--surf);overflow:hidden}
@@ -182,3 +181,23 @@ pre.out .g{color:var(--add)}
 .wrow .wt{font-size:15.5px;flex:1;min-width:0;line-height:1.45}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none}.ctxpanel.open,.cbd.open{max-height:none}}
+
+/* Hero statistics. Grid rather than flex: flex items stretch to the tallest
+   sibling, which previously left each label stranded far below its number.
+   Vertical rules removed too — they were fragile at every breakpoint and the
+   column gap separates these perfectly well. */
+.hmeta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px 30px;
+  margin-top:38px;padding-top:22px;border-top:1px solid var(--hair)}
+.hmeta div{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
+.hmeta .v{font-size:28px;font-weight:600;letter-spacing:-.035em;line-height:1;
+  font-variant-numeric:tabular-nums}
+.hmeta .v em{font-style:normal;font-size:.46em;color:var(--low);font-weight:400}
+.hmeta .k{font-size:12.5px;color:var(--low);line-height:1.45;margin:0;max-width:24ch}
+@media(max-width:820px){.hmeta{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 26px}}
+@media(max-width:520px){
+  .hmeta{grid-template-columns:1fr;gap:0}
+  .hmeta div{flex-direction:row;align-items:baseline;gap:14px;
+    padding:12px 0;border-bottom:1px solid var(--hair)}
+  .hmeta div:last-child{border-bottom:0}
+  .hmeta .v{flex:0 0 84px}
+}

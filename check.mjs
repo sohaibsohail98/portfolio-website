@@ -48,9 +48,8 @@ const kb = Buffer.byteLength(html) / 1024;
 check(`page under 90KB (is ${kb.toFixed(1)}KB)`, kb < 90);
 
 // assets the page links to must actually exist once deployed
-const assets = [['public/Sohaib-Sohail-CV.pdf', 'CV pdf'], ['public/og.png', 'og image']];
-const warns = assets.filter(([p]) => !existsSync(p)).map(([, n]) => n);
-
-if (warns.length) console.log(`⚠  missing (page links to these): ${warns.join(', ')}`);
+// The page links to these, so a missing file is a broken promise, not a warning.
+for (const [p, n] of [['public/Sohaib-Sohail-CV.pdf', 'CV pdf'], ['public/og.png', 'og image']])
+  check(`asset exists: ${n}`, existsSync(p));
 if (fails.length) { console.error('✗ ' + fails.join('\n✗ ')); process.exit(1); }
 console.log(`✓ all checks passed — ${kb.toFixed(1)}KB`);
