@@ -300,3 +300,15 @@ footer .fl a:hover svg{opacity:1;color:var(--acc)}
 .plinks a:hover{text-decoration:underline}
 .live.sm{font-size:8.5px;padding:1px 5px}
 @media print{.featured{display:none}}
+
+/* Three-across grid for the smaller project cards. */
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:24px}
+@media(max-width:900px){.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.grid3{grid-template-columns:1fr}}
+.grid3 .pbody{padding:13px 14px 15px;gap:8px}
+.grid3 .pbody h3{font-size:13px}
+.grid3 .pbody p{font-size:12.5px;line-height:1.5}
+.pshot img{aspect-ratio:760/300;object-fit:cover}
+.plinks{align-items:center}
+.py{margin-left:auto;color:var(--low);font-size:11px}
+@media print{.grid3{display:none}}
