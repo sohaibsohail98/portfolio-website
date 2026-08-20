@@ -186,7 +186,7 @@ pre.out .g{color:var(--add)}
    sibling, which previously left each label stranded far below its number.
    Vertical rules removed too — they were fragile at every breakpoint and the
    column gap separates these perfectly well. */
-.hmeta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px 30px;
+.hmeta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 30px;
   margin-top:38px;padding-top:22px;border-top:1px solid var(--hair)}
 .hmeta div{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
 .hmeta .v{font-size:28px;font-weight:600;letter-spacing:-.035em;line-height:1;
@@ -224,3 +224,21 @@ pre.out .g{color:var(--add)}
 .rlinks a{color:var(--low);text-decoration:none;white-space:nowrap}
 .rlinks a:hover{color:var(--acc)}
 @media(max-width:700px){.rlinks{order:3}}
+
+
+/* Print: recruiters do print portfolios to PDF and attach them to submissions.
+   Force the light palette, drop the interactive console, expand every accordion,
+   and print link targets after the text. */
+@media print{
+  :root{--paper:#fff;--surf:#fff;--surf2:#fff;--ink:#000;--mid:#333;--low:#555;
+        --hair:#ccc;--hair2:#999;--acc:#000;--accw:transparent;--glow:transparent}
+  nav,#proof,#tt,.ctas,.reveal{opacity:1!important;transform:none!important}
+  nav,#proof{display:none!important}
+  section{padding:18px 0;break-inside:avoid}
+  .cbd{max-height:none!important}
+  .chd .cx{display:none}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:9px;color:#666;word-break:break-all}
+  .rlinks a::after,.nav a::after{content:""}
+  body{font-size:11pt}
+  h1{font-size:24pt}
+}

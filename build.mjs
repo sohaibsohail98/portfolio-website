@@ -25,11 +25,14 @@ const joinJs = files => files.map(f => `\n/* ${f} */\n${read(f)}`).join('\n');
 function build() {
   let html = read('index.html');
 
-  html = html.replace(/<!--\s*@include\s+(\S+)\s*-->/g, (_, f) => {
-    const p = join(SRC, f);
-    if (!existsSync(p)) throw new Error(`missing partial: ${f}`);
-    return read(f).trim();
-  });
+  // resolve includes repeatedly: partials may themselves include generated markup
+  for (let pass = 0; pass < 5 && /@include/.test(html); pass++) {
+    html = html.replace(/<!--\s*@include\s+(\S+)\s*-->/g, (_, f) => {
+      const p = join(SRC, f);
+      if (!existsSync(p)) throw new Error(`missing partial: ${f}`);
+      return read(f).trim();
+    });
+  }
 
   html = html.replace(/\/\*\s*@bundle\s+([^*]+)\*\//g, (_, list) => {
     const files = list.trim().split(/\s+/);

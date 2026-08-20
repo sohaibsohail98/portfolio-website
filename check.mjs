@@ -53,3 +53,15 @@ for (const [p, n] of [['public/Sohaib-Sohail-CV.pdf', 'CV pdf'], ['public/og.png
   check(`asset exists: ${n}`, existsSync(p));
 if (fails.length) { console.error('✗ ' + fails.join('\n✗ ')); process.exit(1); }
 console.log(`✓ all checks passed — ${kb.toFixed(1)}KB`);
+
+// Prerendered markup must match what the runtime data would produce, or the
+// static page and the JS version drift apart silently.
+const pre = ['work', 'roles', 'cases']
+  .map(f => readFileSync(`src/partials/generated/${f}.html`, 'utf8').trim());
+check('prerendered work list present in output', html.includes(pre[0].slice(0, 120)));
+check('prerendered roles present in output', html.includes(pre[1].slice(0, 120)));
+check('prerendered cases present in output', html.includes(pre[2].slice(0, 120)));
+check('experience table is static, not JS-only', /id="rolelist"[^>]*>\s*<div class="r"/.test(html));
+check('work list is static, not JS-only', /id="worklist"[^>]*>\s*<div class="rrow"/.test(html));
+check('calendly link present', html.includes('calendly.com/techwithsohaib'));
+check('print stylesheet present', html.includes('@media print'));

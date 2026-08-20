@@ -1,0 +1,32 @@
+<div class="case">
+ <button class="chd" aria-expanded="false" aria-controls="cb0">
+  <span class="cn">01</span>
+  <span class="ct"><b>An MCP server for a US team, delivered ahead of deadline</b><span>Foundation infrastructure for an agentic workflow inside a regulated financial services network.</span></span>
+  <span class="cm">Enterprise AI platform · 2025</span><span class="cx" aria-hidden="true">+</span>
+ </button>
+ <div class="cbd" id="cb0"><dl class="cin"><dt>Context</dt><dd class="">A US team needed an MCP server for an agentic workflow, inside an enterprise Azure estate with no public ingress permitted.</dd><dt>Constraint</dt><dd class="">Private networking end to end: VNet, private endpoints, container registry and image, with the networking constraints resolved alongside <b>Microsoft&rsquo;s AI Product team</b> rather than worked around.</dd><dt>Decision</dt><dd class="">Build it as reviewable infrastructure rather than a one-off deployment, so the next team could copy the pattern instead of reopening the same conversation with Microsoft.</dd><dt>Tradeoff</dt><dd class="">Slower to first demo than a public endpoint would have been, and it needed Microsoft&rsquo;s input on constraints I could not resolve alone.</dd><dt>Outcome</dt><dd class="res">Delivered ahead of deadline and demoed to the CTO. Part of a platform serving <b>200+ engineers</b>, which I ran end to end: DevOps, deployments, and the agentic layer on top.</dd></dl></div>
+</div>
+<div class="case">
+ <button class="chd" aria-expanded="false" aria-controls="cb1">
+  <span class="cn">02</span>
+  <span class="ct"><b>Fifty model deployments, thirty minutes down to two</b><span>Azure OpenAI provisioning moved from portal clicks to a declarative pipeline.</span></span>
+  <span class="cm">Enterprise AI platform · 93% faster</span><span class="cx" aria-hidden="true">+</span>
+ </button>
+ <div class="cbd" id="cb1"><dl class="cin"><dt>Context</dt><dd class="">Model deployments were manual, per model and per region, and quota was checked by asking someone.</dd><dt>Constraint</dt><dd class="">Quota is finite and shared. A deployment that does not fit fails halfway through and leaves the estate in a partial state.</dd><dt>Decision</dt><dd class="">A five-stage Python pipeline — quota discovery, capacity weighting, dry-run validation, tfvars generation, apply — with one YAML file per model family driving Terraform.</dd><dt>Tradeoff</dt><dd class="">More moving parts than a hand-written resource block, and the weighting logic needed explaining to anyone maintaining it. Worth it because failures moved to the start of the process.</dd><dt>Outcome</dt><dd class="res"><b>50+</b> deployments from declarative config, 30 minutes down to <b>2</b>, and manual provisioning failures eliminated. Open version: <a href="https://github.com/sohaibsohail98/sohaib-terraform-azure-llm" target="_blank" rel="noopener">sohaib-terraform-azure-llm</a>.</dd></dl></div>
+</div>
+<div class="case">
+ <button class="chd" aria-expanded="false" aria-controls="cb2">
+  <span class="cn">03</span>
+  <span class="ct"><b>The guardrail was refusing legitimate questions</b><span>The obvious suspect was prompt-attack detection. It was wrong.</span></span>
+  <span class="cm">Multi-agent LLM platform · production incident</span><span class="cx" aria-hidden="true">+</span>
+ </button>
+ <div class="cbd" id="cb2"><dl class="cin"><dt>Context</dt><dd class="">Real user queries were being blocked in production on a multi-agent LLM platform in a regulated sector, where a wrong refusal is a support ticket and a wrong answer is a compliance question.</dd><dt>Constraint</dt><dd class="">No reproducer, and the first hypothesis — prompt-attack detection firing on benign input — was plausible enough that acting on it would have wasted the week.</dd><dt>Decision</dt><dd class="">Build the evidence first: <b>27 test cases and 45 positive controls</b>, run per region and repeated on identical inputs to test whether the detector was even deterministic.</dd><dt>Tradeoff</dt><dd class="">Days spent measuring rather than shipping a fix, against the risk of changing the wrong knob in production and learning nothing.</dd><dt>Outcome</dt><dd class="res">Cause was <b>HATE filter strength</b>, not attack detection. PROMPT_ATTACK proved <b>non-deterministic even at LOW</b> — 83% then 94% on identical runs — so it cannot gate a release. One config change across all three regions restored correct results.</dd></dl></div>
+</div>
+<div class="case">
+ <button class="chd" aria-expanded="false" aria-controls="cb3">
+  <span class="cn">04</span>
+  <span class="ct"><b>Decommissioning a region without taking anything else down</b><span>A destroy is only as safe as the dependency graph you checked first.</span></span>
+  <span class="cm">Multi-brand AWS estate · region exit</span><span class="cx" aria-hidden="true">+</span>
+ </button>
+ <div class="cbd" id="cb3"><dl class="cin"><dt>Context</dt><dd class="">A cloud region needed decommissioning across a multi-brand estate held in separate repositories and GitHub organisations.</dd><dt>Constraint</dt><dd class="">The asset inventory could not be trusted, and <code class="mono">plan -destroy</code> tells you what changes, not who depends on it.</dd><dt>Decision</dt><dd class="">Audit all <b>160</b> organisation repositories for references before touching anything, then sequence <b>8 PRs</b> across three repositories so each diff was small enough to review properly.</dd><dt>Tradeoff</dt><dd class="">Substantially slower than one large destroy PR. Also surfaced a shared virtual private gateway behind connections that looked independent, which had to be ring-fenced first.</dd><dt>Outcome</dt><dd class="res">Region removed with live transit gateway tunnels intact and no unplanned outage. Same approach applied to teardown of <b>11 site-to-site VPN</b> connections across two regions.</dd></dl></div>
+</div>
