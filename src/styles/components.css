@@ -214,3 +214,13 @@ pre.out .g{color:var(--add)}
   border-bottom:1px solid transparent}
 .wall:hover{border-bottom-color:var(--acc)}
 @media(max-width:640px){.wrow{flex-wrap:wrap;gap:4px 14px}.wt{flex-basis:100%}.wr{order:3}}
+
+
+/* Work rows hold two links now (demo + source), so the row is a div and the
+   links are explicit rather than the whole row being one big anchor. */
+.rrow .rn a{color:var(--ink);text-decoration:none;border-bottom:1px solid transparent}
+.rrow .rn a:hover{border-bottom-color:var(--acc)}
+.rlinks{display:flex;gap:14px;flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-size:11px}
+.rlinks a{color:var(--low);text-decoration:none;white-space:nowrap}
+.rlinks a:hover{color:var(--acc)}
+@media(max-width:700px){.rlinks{order:3}}
