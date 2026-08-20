@@ -24,6 +24,14 @@ check('scripted disclaimer in prose', /scripted, not live/i.test(html));
 check('live agent linked', html.includes('sre-agent-sohaibsohail.workers.dev'));
 check('live inspector linked', html.includes('mcp-inspector.sohaibsohail.workers.dev'));
 
+// Claims about the projects must not drift ahead of what the repos actually do.
+// The inspector is not on PyPI and its token counts are labelled estimates; the
+// public SRE demo replays fixtures rather than calling Bedrock live.
+check('does not claim pip-installable', !/pip-installable|pip install mcp-context/i.test(html));
+check('does not claim measured token counts', !/measured token counts/i.test(html));
+check('token estimates labelled as estimates', /labelled as estimates|labelled estimates/i.test(html));
+check('demo replay disclosed', /replays recorded|replays? recorded runs|recorded investigations/i.test(html));
+
 // SEO + social: the preview card is often a recruiter's first impression
 for (const t of ['og:title', 'og:description', 'og:image', 'twitter:card', 'rel="canonical"'])
   check(`meta present: ${t}`, html.includes(t));

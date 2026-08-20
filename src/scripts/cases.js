@@ -1,5 +1,23 @@
 /* ── case studies: constraint → decision → tradeoff → outcome ── */
 const CASES=[
+{t:'An incident agent you can watch think',m:'Personal project &middot; 2026',
+ sum:'Five SRE tools on Bedrock AgentCore, with its own MCP server for per-prompt metrics.',
+ rows:[
+ ['Context','I wanted a agentic build where the interesting part was not the model but everything around it: deployment, evaluation, and being able to see what the agent actually did.'],
+ ['Constraint','Agent evals are usually unreproducible, because the infrastructure being investigated moves under you. So the mock estate (payments-api, checkout-api, auth-api, notifications) is <b>deterministic</b>, which is what makes a score mean anything run to run.'],
+ ['Decision','Five tools (list services, metrics, log search, recent deployments, cost breakdown) on Bedrock AgentCore Runtime, deployed by GitHub Actions over AWS OIDC with no stored keys. Every tool call streams to the browser as it happens rather than resolving into a spinner.'],
+ ['Tradeoff','The system prompt is principled rather than scripted, so answers are correct but not identical turn to turn. That means the eval had to score <b>outcome</b> — were the right tools called, did the key facts reach the answer — instead of an exact tool-call sequence. Harder to write, but it does not punish the agent for finding a different valid route.'],
+ ['Outcome','<b>8/8</b> eval scenarios passing, run live against Bedrock on every push to main before deploy. The public demo runs in fixture-replay mode through the same code path, so a fresh clone works with zero AWS cost. <a href="https://github.com/sohaibsohail98/sre-investigation-agent" target="_blank" rel="noopener">Source and full design notes</a>.']]},
+
+{t:'Showing what actually reached the model',m:'Personal project &middot; 2026',
+ sum:'An MCP server that reports what entered the context window, block by block.',
+ rows:[
+ ['Context','Built inside the agent above, then extracted once it was obviously useful on its own. Anthropic&rsquo;s &ldquo;Explore the context window&rdquo; page does this for Claude Code; I wanted the same visibility for an arbitrary agent loop.'],
+ ['Constraint','Most agent observability re-displays data the interface already showed you. The genuinely invisible part is the ordering and cost of context itself: system prompt, tool specs, reasoning, tool results, final answer, and which of those the end user ever sees.'],
+ ['Decision','Eight tools over a real MCP Streamable-HTTP handshake — seven read, one write — so any MCP client can connect, Claude Desktop included. SQLite locally, DynamoDB deployed. Owner token for solo use, or Google sign-in with per-user isolation.'],
+ ['Tradeoff','Token counts are <b>labelled estimates, not exact provider usage</b>. Exact accounting would have meant coupling to one provider&rsquo;s billing API and losing the point of an MCP server that works with any agent. Labelling the estimate honestly was the better trade, and it is documented rather than buried.'],
+ ['Outcome','A working server anyone can point a client at, and the observability layer behind the panel further up this page. <a href="https://github.com/sohaibsohail98/mcp-context-inspector" target="_blank" rel="noopener">Source and architecture notes</a>.']]},
+
 {t:'An MCP server for a US team, delivered ahead of deadline',m:'Enterprise AI platform · 2025',
  sum:'Foundation infrastructure for an agentic workflow inside a regulated financial services network.',
  rows:[
@@ -57,7 +75,7 @@ $('#cases').addEventListener('click',e=>{
 /* ── roles ── */
 $('#rolelist').innerHTML=[
 ['2026','Veracross','Senior AI Platform Engineer. Multi-agent LLM platform on Bedrock, an evaluation harness gating every PR, guardrails across three regions, Terraform across a multi-brand AWS estate.'],
-['2025–26','LSEG','Senior Cloud &amp; AI Engineer. Ran an enterprise AI platform used by <b>200+ engineers</b> end to end, covering DevOps, deployments and the agentic layer. Built an MCP server with Microsoft&rsquo;s AI Product team, delivered early and demoed to the CTO.'],
+['2025–26','LSEG','Senior Cloud &amp; AI Engineer. Ran an enterprise AI platform used by <b>200+ engineers</b> end to end: the DevOps, the deployments, and the agent and MCP server work on top. Unblocked every team onboarding onto it, and took the unresolved AI Foundry problems directly to Microsoft&rsquo;s product team. Built an MCP server with them, delivered early and demoed to the CTO.'],
 ['2023–25','PwC','Senior DevOps Engineer. Led the Kubernetes workstream for an internal SaaS platform and mentored junior engineers on the team. Shipped an AI compliance application into three tier-one bank environments, plus Landing Zones across AWS and Azure.'],
 ['2021–22','Capgemini','DevOps Engineer. Serverless and EKS workloads, with DevSecOps scanning wired into four different CI systems.']
 ].map(([y,c,d])=>`<div class="r"><span class="y">${y}</span><span class="c">${c}</span><span class="d">${d}</span></div>`).join('');

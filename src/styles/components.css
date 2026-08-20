@@ -242,3 +242,11 @@ pre.out .g{color:var(--add)}
   body{font-size:11pt}
   h1{font-size:24pt}
 }
+
+
+/* One line of real feedback from someone who used the platform. Sits under the
+   role table because it is evidence for the role above it, not decoration. */
+.quote{margin:28px 0 0;padding:0 0 0 20px;border-left:2px solid var(--acc);max-width:60ch}
+.quote blockquote{margin:0;font-size:16.5px;line-height:1.6;letter-spacing:-.01em;color:var(--ink)}
+.quote blockquote b{font-weight:600}
+.quote figcaption{margin-top:9px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--low)}
