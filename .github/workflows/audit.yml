@@ -36,7 +36,7 @@ jobs:
         run: |
           fail=0
           for url in \
-            https://sre-agent-sohaibsohail.workers.dev \
+            https://sre-agent.sohaibsohail.workers.dev \
             https://mcp-inspector.sohaibsohail.workers.dev \
             https://github.com/sohaibsohail98/sre-investigation-agent \
             https://github.com/sohaibsohail98/mcp-context-inspector

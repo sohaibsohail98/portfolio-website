@@ -21,7 +21,7 @@ check('4 case studies', (html.match(/class="chd"/g) || []).length === 0 || true)
 // honesty guarantees — the scripted console must always be labelled as such
 check('scripted console is labelled', html.includes('Scripted walkthrough'));
 check('scripted disclaimer in prose', /scripted, not live/i.test(html));
-check('live agent linked', html.includes('sre-agent-sohaibsohail.workers.dev'));
+check('live agent linked', html.includes('sre-agent.sohaibsohail.workers.dev'));
 check('live inspector linked', html.includes('mcp-inspector.sohaibsohail.workers.dev'));
 
 // Claims about the projects must not drift ahead of what the repos actually do.

@@ -250,3 +250,14 @@ pre.out .g{color:var(--add)}
 .quote blockquote{margin:0;font-size:16.5px;line-height:1.6;letter-spacing:-.01em;color:var(--ink)}
 .quote blockquote b{font-weight:600}
 .quote figcaption{margin-top:9px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--low)}
+
+
+/* Testimonial. The most persuasive line on the page is somebody else's, so it
+   gets room and the serif accent rather than being buried in a paragraph. */
+.quote{margin:26px 0 30px;padding:0 0 0 22px;border-left:2px solid var(--acc);max-width:60ch}
+.quote blockquote{margin:0;font-family:'Instrument Serif',Georgia,serif;font-style:italic;
+  font-size:clamp(18px,2.3vw,23px);line-height:1.45;letter-spacing:-.015em;color:var(--ink)}
+.quote blockquote strong{font-style:normal;font-family:'Schibsted Grotesk',sans-serif;
+  font-weight:600;font-size:.92em}
+.quote figcaption{margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--low)}
+@media print{.quote{break-inside:avoid}}

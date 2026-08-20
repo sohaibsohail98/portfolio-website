@@ -83,5 +83,5 @@ Cloud Run (`cloudrun.yml`, optional): `GCP_WIF_PROVIDER`,
 
 ## Linked demos
 
-- SRE investigation agent — https://sre-agent-sohaibsohail.workers.dev ([source](https://github.com/sohaibsohail98/sre-investigation-agent))
+- SRE investigation agent — https://sre-agent.sohaibsohail.workers.dev ([source](https://github.com/sohaibsohail98/sre-investigation-agent))
 - MCP context inspector — https://mcp-inspector.sohaibsohail.workers.dev ([source](https://github.com/sohaibsohail98/mcp-context-inspector))

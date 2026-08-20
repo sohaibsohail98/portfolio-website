@@ -4,7 +4,7 @@ const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'
 
 /* ── repos ── */
 const REPOS={
- sre:['sre-investigation-agent','2026','https://sre-agent-sohaibsohail.workers.dev',
+ sre:['sre-investigation-agent','2026','https://sre-agent.sohaibsohail.workers.dev',
    'Incident agent with five SRE tools on Bedrock AgentCore. Tool calls stream to the browser as it investigates, and eight eval scenarios run live against Bedrock on every push before deploy. The public demo replays recorded investigations through the same code path.'],
  mci:['mcp-context-inspector','2026','https://mcp-inspector.sohaibsohail.workers.dev',
    'A drop-in MCP server and metrics recorder, extracted from the agent above. Eight tools over session cost and tokens, plus a Context Window Explorer showing what actually reached the model. Run from source; any MCP client can connect.'],

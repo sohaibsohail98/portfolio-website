@@ -53,6 +53,24 @@ const CASES=[
  ['Decision','Audit all <b>160</b> organisation repositories for references before touching anything, then sequence <b>8 PRs</b> across three repositories so each diff was small enough to review properly.'],
  ['Tradeoff','Substantially slower than one large destroy PR. Also surfaced a shared virtual private gateway behind connections that looked independent, which had to be ring-fenced first.'],
  ['Outcome','Region removed with live transit gateway tunnels intact and no unplanned outage. Same approach applied to teardown of <b>11 site-to-site VPN</b> connections across two regions.']]}
+,
+{t:'An incident agent you can watch think',m:'Own project &middot; 2026',
+ sum:'Five SRE tools on Bedrock AgentCore, streaming every tool call as it investigates.',
+ rows:[
+ ['Context','I wanted to answer a question interviews never really settle: can I build an agent that holds up to inspection, not just a demo that answers one happy-path question.'],
+ ['Constraint','Agent demos are usually unfalsifiable. If the data changes run to run you cannot score it, and if the reasoning is hidden you cannot tell competence from luck.'],
+ ['Decision','Deterministic mock infrastructure (payments-api, checkout-api, auth-api, notifications) so eval scoring is reproducible, five tools (list services, metrics, log search, recent deployments, cost breakdown), and a UI that streams each tool call live rather than showing a spinner. Deployed on <b>Bedrock AgentCore Runtime</b> with its own MCP server for per-prompt cost and token metrics.'],
+ ['Tradeoff','Mock data instead of a real observability stack, which costs realism and buys reproducibility. The public demo runs in fixture-replay mode so anyone can try it at zero Bedrock cost, and it is labelled as such.'],
+ ['Outcome','<b>8/8</b> eval scenarios passing, scored on tool selection and on the facts reaching the answer. One scenario has a false premise: ask which deployment broke checkout-api when none did, and a correct answer must trace it to the inventory-service dependency instead of inventing one. <a href="https://sre-agent.sohaibsohail.workers.dev" target="_blank" rel="noopener">Try it</a> or <a href="https://github.com/sohaibsohail98/sre-investigation-agent" target="_blank" rel="noopener">read the source</a>.']]},
+
+{t:'Showing what actually reached the model',m:'Own project &middot; 2026',
+ sum:'An MCP server that makes context window usage visible for any tool-calling agent.',
+ rows:[
+ ['Context','Anthropic&rsquo;s &ldquo;Explore the context window&rdquo; page shows what loads into a Claude Code session and what each file read costs. I wanted that visibility for an arbitrary agent loop, so I pulled the metrics layer out of the SRE agent into something reusable.'],
+ ['Constraint','Most agent observability re-displays data the interface already showed. The genuinely invisible part is what entered context: system prompt, tool specs, reasoning, tool results, final answer, in arrival order, and which of those the user ever sees.'],
+ ['Decision','A drop-in MCP server over Streamable HTTP with eight tools (seven read, plus record_session to write), so any MCP client can connect, Claude Desktop included. Token counts are <b>labelled estimates, not exact usage</b>, which is documented as a deliberate tradeoff rather than left as a silent inaccuracy.'],
+ ['Tradeoff','Estimates rather than exact provider figures, and not yet on PyPI, so it runs from source. Auth is a printed bearer token on startup, the same trust model as a Jupyter server, plus Google sign-in on the hosted instance.'],
+ ['Outcome','Any tool-calling agent can record sessions and get a Context Window Explorer over them, including the split between what the user sees and invisible overhead. <a href="https://mcp-inspector.sohaibsohail.workers.dev" target="_blank" rel="noopener">Try it</a> or <a href="https://github.com/sohaibsohail98/mcp-context-inspector" target="_blank" rel="noopener">read the source</a>.']]}
 ];
 $('#cases').innerHTML=CASES.map((c,i)=>`
 <div class="case">
