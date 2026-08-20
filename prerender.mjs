@@ -31,6 +31,7 @@ new Function(src)();
 
 const out = {
   'src/partials/generated/work.html': captured['worklist'],
+  'src/partials/generated/featured.html': captured['featured'],
   'src/partials/generated/roles.html': captured['rolelist'],
   'src/partials/generated/cases.html': captured['cases'],
 };
