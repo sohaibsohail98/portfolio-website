@@ -85,3 +85,25 @@ Cloud Run (`cloudrun.yml`, optional): `GCP_WIF_PROVIDER`,
 
 - SRE investigation agent — https://sre-agent.sohaibsohail.workers.dev ([source](https://github.com/sohaibsohail98/sre-investigation-agent))
 - MCP context inspector — https://mcp-inspector.sohaibsohail.workers.dev ([source](https://github.com/sohaibsohail98/mcp-context-inspector))
+
+## Structure
+
+Astro + Tailwind, static output. `npm run build` in `astro/` emits `astro/dist/`,
+which is what Cloudflare Pages serves. Zero client JS except a small island for
+the theme toggle, sidebar, scroll reveals and the agent console.
+
+```
+astro/
+  src/data/       content as plain JS objects (site, projects, content)
+  src/components/  Icon, Section, AgentConsole
+  src/layouts/     Base.astro (head, sticky nav, slide-in sidebar)
+  src/pages/       index.astro assembles every section
+  public/          previews, photos, CV, og.png, _headers, _redirects
+check-astro.mjs    CI gate: honesty labels, sections, a11y, assets, meta
+```
+
+## CI/CD
+
+`deploy.yml` builds the Astro site, runs `check-astro.mjs`, and deploys
+`astro/dist` to Cloudflare Pages. `check-astro.mjs` fails the build if the
+scripted-console disclaimer or the live demo links go missing.

@@ -1,0 +1,63 @@
+<div class="overflow-hidden rounded-2xl border border-hair bg-surf">
+  <div class="flex flex-wrap items-center gap-3 border-b border-hair bg-surf2 px-4 py-3">
+    <span class="font-mono text-[11.5px] text-low">portfolio-agent</span>
+    <span class="rounded-full border border-[var(--warm)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-[.1em] text-[var(--warm)]">Scripted walkthrough</span>
+    <a href="https://sre-agent.sohaibsohail.workers.dev" target="_blank" rel="noopener" class="ml-auto font-mono text-[11.5px] text-acc hover:underline">Open the live agent →</a>
+  </div>
+  <div class="px-4 pt-4"><span class="mb-2.5 block font-mono text-[10px] uppercase tracking-[.15em] text-low">Try one</span>
+    <div id="chips" class="flex flex-wrap gap-2"></div>
+  </div>
+  <div class="px-4 pb-6 pt-5">
+    <div class="mb-4 flex items-baseline gap-3"><span class="font-mono text-[10px] tracking-[.15em] text-low">YOU</span><span id="qt" class="text-[18.5px] font-medium leading-[1.35] tracking-[-.02em]">—</span></div>
+    <div id="trace" class="mb-4"></div>
+    <div id="ans" aria-live="polite" class="border-t border-hair pt-5"></div>
+  </div>
+</div>
+<script>
+  const T = {
+    who: { q: 'What do you actually do?',
+      tr: [['tool','profile.lookup','{}',95],['model','converse','synthesise',940]],
+      ans: '<p class="mb-3.5 text-[16.5px] leading-[1.68]">I build the platform layer underneath AI products: deployment pipelines, agent and MCP plumbing, the evaluation that decides whether a change ships, and the guardrails and observability around it.</p><p class="text-[15px] leading-[1.68] text-mid">Before that, five years of pure infrastructure, which is the part that makes the AI work survivable.</p>' },
+    work: { q: 'Show me your best work',
+      tr: [['tool','github.list_repos','{ sort:"pushed" }',230],['check','assert.links_resolve','HEAD ×10',180],['model','converse','rank by depth',1120]],
+      ans: '<p class="text-[16.5px] leading-[1.68]">Two deployed and open to anyone: the <a class="text-acc underline" href="https://sre-agent.sohaibsohail.workers.dev" target="_blank" rel="noopener">SRE agent</a> and the <a class="text-acc underline" href="https://mcp-inspector.sohaibsohail.workers.dev" target="_blank" rel="noopener">MCP context inspector</a>. Scroll to Selected work for the depth on each.</p>' },
+    agent: { q: 'Explain the SRE agent',
+      tr: [['tool','repo.read','{ path:"tools/" }',140],['check','eval.replay','8/8 passing',1520],['model','converse','summarise',980]],
+      ans: '<p class="text-[16.5px] leading-[1.68]">Five tools, deterministic mock data so eval scores mean something, streaming every tool call as it works. The part I am most pleased with is the false-premise eval: ask which deployment broke a service when none did, and a correct answer traces the real dependency instead of inventing one.</p>' },
+    hire: { q: 'Why should I hire you?',
+      tr: [['tool','roles.query','ORDER BY start DESC',80],['model','converse','answer honestly',1100]],
+      ans: '<p class="text-[16.5px] leading-[1.68]">Because I have already done the unglamorous half. Plenty of people can prototype an agent; fewer have run one in production with quota governance, region failover, an adversarial suite and an eval harness that can block a release.</p>' },
+  };
+  const ICON = { tool: '▸', model: '✦', check: '✓' };
+  const rd = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const sleep = m => new Promise(r => setTimeout(r, rd ? 0 : m));
+  const chips = document.getElementById('chips');
+  [['who','What do you actually do?'],['work','Best work'],['agent','The SRE agent'],['hire','Why hire you?']]
+    .forEach(([k, l]) => {
+      const b = document.createElement('button');
+      b.className = 'chip rounded-full border border-hair2 px-3.5 py-1.5 text-[13.5px] text-mid transition hover:border-ink hover:text-ink';
+      b.textContent = l; b.dataset.k = k; chips.appendChild(b);
+    });
+  let tok = 0;
+  async function run(key) {
+    const t = T[key]; if (!t) return; const my = ++tok;
+    document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-current', String(c.dataset.k === key)));
+    document.getElementById('qt').textContent = t.q;
+    const trace = document.getElementById('trace'); const ans = document.getElementById('ans');
+    trace.innerHTML = ''; ans.innerHTML = '';
+    const think = document.createElement('div');
+    think.className = 'font-mono text-[12px] text-low py-1.5 pl-6'; think.textContent = 'thinking…';
+    trace.appendChild(think); await sleep(400); if (my !== tok) return; think.remove();
+    for (const [k, n, a, ms] of t.tr) {
+      if (my !== tok) return;
+      const row = document.createElement('div');
+      row.className = 'flex items-baseline gap-3 py-1.5 font-mono text-[12px] text-low';
+      row.innerHTML = `<span class="w-3.5 text-center text-acc">${ICON[k]}</span><span class="text-mid">${n}</span><span class="flex-1 truncate">${a}</span><span class="tabular-nums opacity-70">${ms}ms</span>`;
+      trace.appendChild(row); await sleep(280);
+    }
+    if (my !== tok) return;
+    ans.innerHTML = t.ans;
+  }
+  chips.addEventListener('click', e => { const c = e.target.closest('.chip'); if (c) run(c.dataset.k); });
+  run('who');
+</script>

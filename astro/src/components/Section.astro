@@ -1,0 +1,13 @@
+---
+const { id, num, title, intro } = Astro.props;
+---
+<section id={id} class="reveal border-t border-hair py-14 md:py-16">
+  <div class="mx-auto max-w-content px-6">
+    <div class="mb-3 flex items-baseline gap-3">
+      {num && <span class="font-mono text-[11.5px] text-low">{num}</span>}
+      <h2 class="text-[clamp(22px,2.9vw,29px)] font-semibold tracking-[-.032em]">{title}</h2>
+    </div>
+    {intro && <p class="mb-7 max-w-[62ch] text-[15.5px] leading-[1.6] text-mid">{intro}</p>}
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,20 @@
+:root{
+  --paper:#F7F5F1; --surf:#FFFFFF; --surf2:#EFECE5; --hair:rgba(22,21,26,.11); --hair2:rgba(22,21,26,.2);
+  --ink:#16151A; --mid:#54515C; --low:#6B6774;
+  --acc:#3A2FE0; --accw:rgba(58,47,224,.07); --add:#0F6B42; --del:#A83A24; --warm:#8A5A16; --live:#0F6B42;
+}
+:root[data-theme="dark"]{
+  --paper:#101017; --surf:#17171F; --surf2:#1D1D27; --hair:rgba(255,255,255,.09); --hair2:rgba(255,255,255,.18);
+  --ink:#F0EEE9; --mid:#A9A5B2; --low:#918D9C;
+  --acc:#9D96FF; --accw:rgba(157,150,255,.1); --add:#5BD394; --del:#FF9077; --warm:#E5B978; --live:#5BD394;
+}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);transition:background .35s,color .35s}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:3px}
+/* Visible by default. Only animate when JS is present (html.js), so a blocked
+   or failed script never leaves a section invisible. */
+.js .reveal{opacity:0;transform:translatey(12px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
+.js .reveal.in{opacity:1;transform:none}
+.live-tag{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.09em;color:var(--paper);
+  background:var(--live);padding:2px 6px;border-radius:4px;vertical-align:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.reveal{opacity:1;transform:none}}
