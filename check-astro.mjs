@@ -1,5 +1,11 @@
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 const html = readFileSync('astro/dist/index.html', 'utf8');
+// Astro emits CSS to a hashed file; some assertions live there, not inline.
+const cssDir = 'astro/dist/_astro';
+const css = existsSync(cssDir)
+  ? readdirSync(cssDir).filter(f => f.endsWith('.css')).map(f => readFileSync(`${cssDir}/${f}`, 'utf8')).join('')
+  : '';
+const all = html + css;
 const fails = [];
 const check = (n, c) => { if (!c) fails.push(n); };
 
@@ -27,7 +33,7 @@ check('json-ld', html.includes('"@type":"Person"'));
 // a11y
 check('skip link', html.includes('Skip to content'));
 check('lang', /<html lang="en"/.test(html));
-check('reduced-motion', html.includes('prefers-reduced-motion'));
+check('reduced-motion', all.includes('prefers-reduced-motion'));
 
 // assets
 for (const [p, n] of [['astro/public/Sohaib-Sohail-CV.pdf','CV'],['astro/public/og.png','og'],
