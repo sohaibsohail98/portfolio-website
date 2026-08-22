@@ -167,6 +167,46 @@ assertion. Categories:
 
 ---
 
+## Credentials — how to authenticate (no secrets in this file, on purpose)
+
+This file is committed to a public repo, so it contains **no tokens**. Here is how
+a chat authenticates to make and ship changes. Two credentials are involved and
+they're handled very differently.
+
+### Cloudflare (deploy) — already wired, nothing to supply
+The deploy is fully automated in CI. The Cloudflare credentials live in **GitHub
+repo settings**, encrypted, never in tracked files:
+- `secrets.CLOUDFLARE_API_TOKEN`
+- `vars.CLOUDFLARE_ACCOUNT_ID`
+You never paste these into a chat. Push to `main`, and `.github/workflows/deploy.yml`
+builds, tests, and deploys on its own. If the token ever needs rolling, reissue a
+Pages-scoped token in the Cloudflare dashboard and update the repo secret in
+GitHub Settings → Secrets and variables → Actions.
+
+### GitHub (push) — supply one per session, minimal blast radius
+The only thing a chat needs from you is a token to push the commit. Use a
+**fine-grained PAT scoped to this one repo**, not a classic account-wide one:
+
+1. GitHub → Settings → Developer settings → **Fine-grained tokens** → Generate new.
+2. **Repository access:** Only select repositories → `portfolio-website`.
+3. **Permissions:** Repository → **Contents: Read and write** (that's all that's
+   needed; add Workflows: Read and write only if editing `.github/workflows/`).
+4. **Expiration:** set a short one (7–30 days). Let it lapse rather than reusing.
+5. Paste it into the chat when it's ready to push. Rotate/delete after the session.
+
+Why fine-grained: if it leaks, the damage is confined to this repo and expires by
+itself, unlike a classic PAT which can write across the whole account.
+
+### Rules for any chat handling these
+- **Never** write either credential into a tracked file (this doc, README, source),
+  into project memory, or anywhere it persists and re-surfaces. Secrets belong only
+  in GitHub's encrypted secret store (Cloudflare) or pasted per-session and then
+  discarded (GitHub).
+- After pushing, poll the `deploy.yml` run until `completed success`.
+- Redact tokens from any command echoed back (`sed "s/$TOKEN/[redacted]/g"`).
+
+---
+
 ## Known follow-ups / open items
 
 - **Custom domain** not yet attached (still on the .pages.dev subdomain). Needs
@@ -174,8 +214,9 @@ assertion. Categories:
   `Base.astro`, and the branch name in the deploy step if needed.
 - **Verify demo URLs in a browser** periodically — the container can't reach
   `workers.dev`, so a human should confirm they load.
-- **Security note for whoever holds credentials:** past chats exposed a GitHub PAT
-  and a Cloudflare token in transcript. If they're still live, rotate them.
+- **Rotate the old credentials:** earlier chats exposed a GitHub PAT and a
+  Cloudflare token in transcript. If they're still live, revoke them and reissue
+  per the Credentials section above (fine-grained repo PAT; Pages-scoped CF token).
 
 ---
 
