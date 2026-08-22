@@ -32,10 +32,10 @@ export const cases = [
 ];
 
 export const roles = [
-  ['2026', 'Veracross', 'Senior AI Platform Engineer. Multi-agent LLM platform on Bedrock, an eval harness gating every PR, guardrails across three regions, and Terraform across a multi-brand AWS estate.'],
-  ['2025–26', 'LSEG', 'Senior Cloud & AI Engineer. Ran an enterprise AI platform used by 200+ engineers end to end: DevOps and deployments, the agentic layer and MCP setup, and unblocking every team onboarding onto it. Escalated to Microsoft\u2019s AI Product team to sort out AI Foundry issues.'],
-  ['2023–25', 'PwC', 'Senior DevOps Engineer. Led the Kubernetes workstream for an internal SaaS platform and mentored the juniors on the team. Shipped an AI compliance app into three tier-one bank environments, plus Landing Zones across AWS and Azure.'],
-  ['2021–22', 'Capgemini', 'DevOps Engineer. Serverless and EKS workloads, with DevSecOps scanning wired into four different CI systems.'],
+  ['2026', 'Veracross', 'Senior AI Platform Engineer. Run three agentic AI agents on AWS Bedrock and Ruby on Rails, turning natural-language questions into governed SQL and dashboards. Built the guardrail eval suite (64 adversarial prompts across the OWASP LLM Top 10), an LLM-as-judge harness gating every release, and cross-region failover with per-tenant token budgets.', '64-prompt guardrail suite, OWASP LLM Top 10'],
+  ['2025–26', 'LSEG', 'Senior Cloud & AI Engineer. Helped design and roll out LSEG\u2019s enterprise AI platform on Azure AI Foundry, hosting LLMs and agentic workflows for 200+ projects. Automated deployment of 50+ LLMs, cutting rollout from 30 minutes to 2, and built an MCP server for a US team\u2019s agentic workflow. Escalated weekly to Microsoft\u2019s AI Product team and demoed to the CTO.', 'Demoed live to LSEG\u2019s CTO'],
+  ['2023–25', 'PwC', 'Senior DevOps Engineer. Shipped an AI compliance app into NatWest, Barclays and Deutsche Bank through five client POCs to production: document comparison, summarisation and RAG based Q&A over 10+ Azure OpenAI deployments. Built the Python backend on Cosmos DB and Azure AI Search, and wired APIM and Application Insights observability across 15+ Azure AI services.'],
+  ['2021–22', 'Capgemini', 'DevOps Engineer. Serverless and EKS workloads on AWS Lambda and API Gateway, cutting operational cost by 25%. CI/CD across Azure DevOps, Jenkins and Drone CI, with DevSecOps scanning from Anchore and SonarQube.'],
 ];
 
 export const testimonial = {

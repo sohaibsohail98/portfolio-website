@@ -1,6 +1,6 @@
 ---
 import Section from '../Section.astro';
-import { techStack } from '../../data/site.js';
+import { techStack, certifications, education } from '../../data/site.js';
 import { background } from '../../data/content.js';
 ---
 <Section id="background" num="07" title="Background">
@@ -27,6 +27,18 @@ import { background } from '../../data/content.js';
           {g.items.map(t => <span class="rounded-full border border-hair bg-surf px-3.5 py-1.5 text-[12.5px] transition hover:border-acc hover:text-acc">{t}</span>)}
         </div>
       ))}
+    </div>
+  </div>
+  <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2">
+    <div>
+      <span class="mb-4 block font-mono text-[10px] uppercase tracking-[.16em] text-low">Certifications</span>
+      <div class="flex flex-wrap gap-2">
+        {certifications.map(c => <span class="rounded-full border border-hair bg-surf px-3.5 py-1.5 text-[12.5px] transition hover:border-acc hover:text-acc">{c}</span>)}
+      </div>
+    </div>
+    <div>
+      <span class="mb-4 block font-mono text-[10px] uppercase tracking-[.16em] text-low">Education</span>
+      <p class="m-0 text-[14px] leading-[1.55] text-mid">{education.degree}<br /><span class="text-low">{education.school}</span></p>
     </div>
   </div>
 </Section>
