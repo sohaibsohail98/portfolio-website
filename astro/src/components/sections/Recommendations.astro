@@ -1,0 +1,30 @@
+---
+import Section from '../Section.astro';
+import { recommendations, testimonial } from '../../data/content.js';
+const [pre, post] = testimonial.quote.split('45%');
+---
+<Section id="recommendations" num="05" title="Recommendations"
+  intro="From people who managed me or shipped alongside me.">
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+    <figure class="m-0 rounded-xl border border-hair bg-surf p-6">
+      <blockquote class="m-0 text-[15px] leading-[1.62] text-mid">
+        {pre}<strong class="font-semibold text-ink">45%</strong>{post}
+      </blockquote>
+      <figcaption class="mt-4 border-t border-hair pt-4">
+        <span class="block text-[13px] text-low">{testimonial.who}</span>
+      </figcaption>
+    </figure>
+    {recommendations.map(r => (
+      <figure class="m-0 rounded-xl border border-hair bg-surf p-6">
+        <blockquote class="m-0 text-[15px] leading-[1.62] text-mid">
+          {r.quote}
+        </blockquote>
+        <figcaption class="mt-4 border-t border-hair pt-4">
+          <span class="block text-[14.5px] font-semibold tracking-[-.015em]">{r.name}</span>
+          <span class="block text-[13px] text-low">{r.title}</span>
+          <span class="mt-1 block font-mono text-[11px] text-acc">{r.context}</span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+</Section>

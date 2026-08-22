@@ -1,16 +1,9 @@
 ---
 import Section from '../Section.astro';
-import { roles, testimonial } from '../../data/content.js';
-const [pre, post] = testimonial.quote.split('45%');
+import { roles } from '../../data/content.js';
 ---
 <Section id="experience" num="04" title="Experience"
   intro="Four roles, all delivery-facing. The through-line is platform work other engineers depend on.">
-  <figure class="my-7 max-w-[60ch] border-l-2 border-acc pl-[22px]">
-    <blockquote class="m-0 font-serif text-[clamp(18px,2.3vw,23px)] italic leading-[1.45] tracking-[-.015em]">
-      {pre}<strong class="font-sans text-[.92em] font-semibold not-italic">45%</strong>{post}
-    </blockquote>
-    <figcaption class="mt-3 font-mono text-[11.5px] text-low">{testimonial.who}</figcaption>
-  </figure>
   <div class="border-t border-hair">
     {roles.map(([y, c, d, hl]) => (
       <div class="grid grid-cols-1 gap-x-[18px] gap-y-1 border-b border-hair py-4 sm:[grid-template-columns:64px_100px_1fr]">

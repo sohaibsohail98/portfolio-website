@@ -3,6 +3,7 @@ export const nav = [
   { href: '#work', label: 'Work' },
   { href: '#cases', label: 'Case studies' },
   { href: '#experience', label: 'Experience' },
+  { href: '#recommendations', label: 'Recommendations' },
   { href: '#consult', label: 'Work with me' },
   { href: '#writing', label: 'Writing' },
   { href: '#background', label: 'About' },

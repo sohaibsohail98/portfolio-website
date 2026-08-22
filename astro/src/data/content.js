@@ -38,6 +38,13 @@ export const roles = [
   ['2021–22', 'Capgemini', 'DevOps Engineer. Serverless and EKS workloads on AWS Lambda and API Gateway, cutting operational cost by 25%. CI/CD across Azure DevOps, Jenkins and Drone CI, with DevSecOps scanning from Anchore and SonarQube.'],
 ];
 
+export const recommendations = [
+  { name: 'Anirban Chakraborty', title: 'AI Architecture & Engineering, PwC UK', context: 'Managed Sohaib directly',
+    quote: 'I had the pleasure of managing Sohaib directly, and he consistently impressed me with his strong technical capability, curiosity, and willingness to take on complex challenges. Sohaib is particularly strong in DevOps, automation, AI, and modern engineering practices. One of his biggest strengths is how quickly he learns new technologies and turns that knowledge into practical solutions. He contributed to several innovation initiatives within the team, bringing new ideas, experimenting with emerging technologies, and helping us improve the way we designed and delivered solutions. Beyond his technical skills, Sohaib is proactive, dependable, and always keen to collaborate and share knowledge with others. I would highly recommend him to any organisation looking for a strong engineer who combines solid DevOps expertise with a genuine passion for AI, automation, and continuous learning.' },
+  { name: 'Sharath Chandra', title: 'Cloud Data Architect', context: 'Worked with Sohaib on the same team',
+    quote: 'I had the pleasure of working alongside Sohaib on the AI-powered regulatory compliance app at PwC. His technical leadership was central to transforming complex compliance requirements into a production-ready application. Sohaib architected the core RAG platform for document comparison, summarisation, and policy mapping. He built the Python backend, integrated vector storage and semantic search, and automated document ingestion pipelines, slashing indexing time by 50%. What sets Sohaib apart is his dual expertise in AI and cloud engineering: he authored modular Terraform code, built CI/CD pipelines, and implemented API Management with Application Insights for full MLOps observability into latency, token usage, and model performance. He consistently delivered secure, high-performance infrastructure and solved tough technical constraints with ease. Any team would be lucky to have Sohaib, and I\u2019d welcome the chance to work with him again!' },
+];
+
 export const testimonial = {
   quote: 'Sohaib, you are a delight to work with and you have continuously been supporting and helping us onboard onto this LLM platform. We\u2019ve been able to automate our workflows and increase productivity by 45%.',
   who: 'An engineer who onboarded onto the platform, 2026',
