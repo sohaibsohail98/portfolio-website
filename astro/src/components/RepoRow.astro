@@ -1,0 +1,8 @@
+---
+const { p, archive = false } = Astro.props;
+---
+<a href={p.repo} target="_blank" rel="noopener" class="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-hair px-2 py-3.5 transition hover:bg-[var(--accw)]">
+  <span class:list={["font-mono text-[13.5px]", archive && "text-mid"]}>{p.name}</span>
+  <span class="flex-1 text-[13.5px] text-mid" style="min-width:180px">{p.blurb}</span>
+  <span class="font-mono text-[11px] text-low">{p.year} {archive ? "browse" : ""}↗</span>
+</a>

@@ -1,0 +1,23 @@
+---
+import Icon from '../Icon.astro';
+import { socials } from '../../data/site.js';
+---
+<footer id="contact" class="border-t border-hair py-16">
+  <div class="mx-auto max-w-content px-6">
+    <h3 class="m-0 max-w-[24ch] text-[clamp(25px,4.2vw,39px)] font-bold leading-[1.1] tracking-[-.036em]">
+      If you'd rather read code than a CV, start with the SRE agent.
+    </h3>
+    <p class="m-0 mt-4 max-w-[54ch] text-[16px] leading-[1.6] text-mid sm:text-[17px]">
+      I'm in Preston, working remotely or hybrid, and open to senior, staff or principal platform and AI roles. Quickest way in is to book a slot.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      {socials.map(s => (
+        <a href={s.href} target={s.icon === 'mail' ? undefined : '_blank'} rel="noopener"
+          class="inline-flex items-center gap-2 rounded-full border border-hair bg-surf px-4 py-2 text-[13px] text-mid transition hover:border-acc hover:text-ink">
+          <Icon name={s.icon} size={15} />{s.label}
+        </a>
+      ))}
+    </div>
+    <p class="mt-11 font-mono text-[11px] text-low">Sohaib Sohail · Preston, Lancashire · 2026</p>
+  </div>
+</footer>

@@ -18,3 +18,10 @@ body{background:var(--paper);color:var(--ink);transition:background .35s,color .
 .live-tag{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.09em;color:var(--paper);
   background:var(--live);padding:2px 6px;border-radius:4px;vertical-align:2px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.reveal{opacity:1;transform:none}}
+
+/* Accordions (case studies + project details). Closed by default; JS toggles .open. */
+.acc-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.2,.8,.2,1)}
+.acc-body.open{max-height:640px}
+[data-acc][aria-expanded="true"] .acc-plus{transform:rotate(45deg)}
+.acc-plus{display:inline-block;transition:transform .25s}
+@media(prefers-reduced-motion:reduce){.acc-body.open{max-height:none}}

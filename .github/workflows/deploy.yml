@@ -5,37 +5,44 @@ on:
   pull_request:
   workflow_dispatch:
 
-permissions: { contents: read, deployments: write, pull-requests: write }
+permissions: { contents: read, deployments: write }
+
+defaults:
+  run:
+    working-directory: astro
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: '22' }
-      - name: Build Astro and check
-        run: |
-          cd astro && npm ci && npm run build && cd ..
-          node check-astro.mjs
+        with: { node-version: '22', cache: 'npm', cache-dependency-path: astro/package-lock.json }
+      - run: npm ci
+      - run: npm run build
+      - name: Run tests
+        run: npm test
       - uses: actions/upload-artifact@v4
         with: { name: dist, path: astro/dist/, retention-days: 7 }
 
   deploy:
-    needs: build
+    needs: build-and-test
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+      name: production
       url: ${{ steps.cf.outputs.deployment-url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: '22' }
-      - run: cd astro && npm ci && npm run build
+        with: { node-version: '22', cache: 'npm', cache-dependency-path: astro/package-lock.json }
+      - run: npm ci
+      - run: npm run build
       - name: Deploy to Cloudflare Pages
         id: cf
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy astro/dist --project-name=sohaibsohail --branch=${{ github.head_ref || github.ref_name }}
+          workingDirectory: astro
+          command: pages deploy dist --project-name=sohaibsohail --branch=main

@@ -1,0 +1,11 @@
+---
+import Section from '../Section.astro';
+import AgentConsole from '../AgentConsole.astro';
+---
+<Section id="proof" num="01" title="Ask the agent"
+  intro="The trace below is scripted, not live. The real agent is deployed and free to try; the public instance replays recorded runs, so it costs nothing.">
+  <AgentConsole />
+  <p class="mt-4 font-mono text-[12px] text-low">
+    <a href="https://sre-agent.sohaibsohail.workers.dev" target="_blank" rel="noopener" class="text-acc hover:underline">Open the live agent →</a>
+  </p>
+</Section>

@@ -1,0 +1,36 @@
+---
+// One project card. `big` gives the featured treatment with a details expander.
+const { p, big = false } = Astro.props;
+const href = p.live || p.repo;
+---
+<article class:list={["group flex flex-col overflow-hidden border border-hair bg-surf transition hover:-translate-y-1 hover:border-acc", big ? "rounded-2xl" : "rounded-xl"]}>
+  <a href={href} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="block overflow-hidden border-b border-hair bg-surf2">
+    <img src={p.img} alt="" width="760" height="300" loading="lazy" decoding="async"
+      class="w-full [aspect-ratio:760/300] object-cover object-top transition duration-500 group-hover:scale-[1.03]" />
+  </a>
+  <div class:list={["flex flex-1 flex-col", big ? "gap-2.5 p-4" : "gap-2 p-3.5"]}>
+    <h3 class:list={["m-0 flex flex-wrap items-center gap-2 font-mono font-medium tracking-[-.01em]", big ? "text-[14px]" : "text-[13px]"]}>
+      <a href={href} target="_blank" rel="noopener" class="border-b border-transparent hover:border-acc">{p.name}</a>
+      {p.live && <span class="live-tag">LIVE</span>}
+    </h3>
+    <p class:list={["m-0 leading-[1.55] text-mid", big ? "text-[13.5px]" : "text-[12.5px]"]}>{p.blurb}</p>
+    <ul class="flex flex-wrap gap-1.5">
+      {p.tech.map(t => <li class="rounded-full border border-hair px-2 py-0.5 font-mono text-[9.5px] text-low">{t}</li>)}
+    </ul>
+    {big && p.facts && (
+      <div class="mt-1">
+        <button data-acc aria-expanded="false" class="flex items-center gap-1.5 font-mono text-[11.5px] text-acc">+ details</button>
+        <div class="acc-body">
+          <ul class="mt-2 space-y-1.5 border-l border-hair pl-3">
+            {p.facts.map(f => <li class="text-[12.5px] leading-[1.5] text-mid">{f}</li>)}
+          </ul>
+        </div>
+      </div>
+    )}
+    <div class:list={["mt-auto flex items-center gap-3.5 font-mono", big ? "pt-2 text-[11.5px]" : "pt-1 text-[11px]"]}>
+      {p.live && <a href={p.live} target="_blank" rel="noopener" class="text-acc hover:underline">{big ? "Open demo" : "demo"} ↗</a>}
+      <a href={p.repo} target="_blank" rel="noopener" class="text-acc hover:underline">{big ? "Source" : "source"} ↗</a>
+      <span class="ml-auto text-low">{p.year}</span>
+    </div>
+  </div>
+</article>

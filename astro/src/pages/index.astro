@@ -1,205 +1,28 @@
 ---
+// The whole page is an assembly of section components. Each section owns its
+// own markup; content lives in src/data. To change copy, edit the data file.
 import Base from '../layouts/Base.astro';
-import Section from '../components/Section.astro';
-import Icon from '../components/Icon.astro';
-import AgentConsole from '../components/AgentConsole.astro';
-import { stats, techStack, socials } from '../data/site.js';
-import { featured, grid, moreRepos } from '../data/projects.js';
-import { intro, cases, roles, testimonial, posts, consult, background } from '../data/content.js';
+import Hero from '../components/sections/Hero.astro';
+import Console from '../components/sections/Console.astro';
+import Work from '../components/sections/Work.astro';
+import Cases from '../components/sections/Cases.astro';
+import Experience from '../components/sections/Experience.astro';
+import Consult from '../components/sections/Consult.astro';
+import Writing from '../components/sections/Writing.astro';
+import Background from '../components/sections/Background.astro';
+import Footer from '../components/sections/Footer.astro';
+
 const title = 'Sohaib Sohail · Cloud & AI Platform Engineer, UK';
 const description = 'I take AI agents from prototype to production, and build the platform they run on. Bedrock agents, MCP servers, LLM evaluation, Terraform across three clouds. Available for senior roles.';
 ---
 <Base title={title} description={description}>
-  <header class="px-6 pt-14 pb-12 md:pt-16">
-    <div class="mx-auto max-w-content">
-      <div class="mb-6 inline-flex items-center gap-2 font-mono text-[11.5px] uppercase tracking-[.09em] text-[var(--live)]">
-        <span class="h-[7px] w-[7px] rounded-full bg-[var(--live)]"></span>Open to work · senior, staff or principal · UK remote or hybrid
-      </div>
-      <h1 class="m-0 max-w-[20ch] text-[clamp(33px,5.4vw,60px)] font-bold leading-[1.03] tracking-[-.04em]">
-        I take <span class="font-serif italic text-acc">AI agents</span> from prototype to production, and build the platform they run on.
-      </h1>
-      <p class="mt-6 max-w-[60ch] text-[17px] leading-[1.6] text-mid">{intro}</p>
-      <div class="mt-7 flex flex-wrap gap-3">
-        <a href="https://calendly.com/techwithsohaib/chat-with-sohaib" target="_blank" rel="noopener" class="rounded-full border border-ink bg-ink px-5 py-2.5 text-[14.5px] text-paper transition hover:opacity-85">Book a chat</a>
-        <a href="https://sre-agent.sohaibsohail.workers.dev" target="_blank" rel="noopener" class="rounded-full border border-ink px-5 py-2.5 text-[14.5px] transition hover:bg-surf2">Try my live agent</a>
-        <a href="/Sohaib-Sohail-CV.pdf" class="rounded-full border border-ink px-5 py-2.5 text-[14.5px] transition hover:bg-surf2">Download CV</a>
-      </div>
-      <div class="mt-11 grid grid-cols-1 gap-x-8 border-t border-hair sm:grid-cols-3">
-        {stats.map(s => (
-          <div class="flex items-baseline gap-3 border-b border-hair py-4 sm:block sm:border-b-0 sm:py-5">
-            <div class="text-[27px] font-semibold leading-none tracking-[-.035em] [font-variant-numeric:tabular-nums]">{s.v}</div>
-            <div class="text-[12.5px] leading-[1.4] text-low sm:mt-2 sm:max-w-[22ch]">{s.k}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </header>
-
-  <Section id="proof" num="01" title="Ask the agent" intro="The trace below is scripted, not live. The real agent is deployed and free to try; the public instance replays recorded runs, so it costs nothing.">
-    <AgentConsole />
-    <p class="mt-4 font-mono text-[12px] text-low"><a href="https://sre-agent.sohaibsohail.workers.dev" target="_blank" rel="noopener" class="text-acc hover:underline">Open the live agent →</a></p>
-  </Section>
-
-  <Section id="work" num="02" title="Selected work" intro="Two flagships, deployed and open to anyone, with the depth behind them. Then the rest.">
-    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-      {featured.map(p => (
-        <article class="flex flex-col overflow-hidden rounded-2xl border border-hair bg-surf transition hover:-translate-y-1 hover:border-acc">
-          <a href={p.live} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="block overflow-hidden border-b border-hair bg-surf2">
-            <img src={p.img} alt="" width="760" height="300" loading="lazy" decoding="async" class="w-full [aspect-ratio:760/300] object-cover" />
-          </a>
-          <div class="flex flex-1 flex-col gap-2.5 p-4">
-            <h3 class="m-0 flex flex-wrap items-center gap-2 font-mono text-[14px] font-medium tracking-[-.01em]">
-              <a href={p.live} target="_blank" rel="noopener" class="border-b border-transparent hover:border-acc">{p.name}</a><span class="live-tag">LIVE</span>
-            </h3>
-            <p class="m-0 text-[13.5px] leading-[1.55] text-mid">{p.blurb}</p>
-            <div class="flex flex-wrap gap-1.5">{p.tech.map(t => <span class="rounded-full border border-hair px-2 py-0.5 font-mono text-[9.5px] text-low">{t}</span>)}</div>
-            <button data-acc aria-expanded="false" class="mt-1 flex items-center gap-1.5 self-start font-mono text-[11.5px] text-acc"><span>+ details</span></button>
-            <div class="acc-body"><ul class="mt-1 space-y-1.5 border-l border-hair pl-3">{p.facts.map(f => <li class="text-[12.5px] leading-[1.5] text-mid">{f}</li>)}</ul></div>
-            <span class="mt-auto flex gap-3.5 pt-2 font-mono text-[11.5px]">
-              <a href={p.live} target="_blank" rel="noopener" class="text-acc hover:underline">Open demo ↗</a>
-              <a href={p.repo} target="_blank" rel="noopener" class="text-acc hover:underline">Source ↗</a>
-              <span class="ml-auto text-low">{p.year}</span>
-            </span>
-          </div>
-        </article>
-      ))}
-    </div>
-    <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {grid.map(p => (
-        <article class="flex flex-col overflow-hidden rounded-xl border border-hair bg-surf transition hover:-translate-y-1 hover:border-acc">
-          <a href={p.live || p.repo} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="block overflow-hidden border-b border-hair bg-surf2">
-            <img src={p.img} alt="" width="760" height="300" loading="lazy" decoding="async" class="w-full [aspect-ratio:760/300] object-cover" />
-          </a>
-          <div class="flex flex-1 flex-col gap-2 p-3.5">
-            <h3 class="m-0 flex flex-wrap items-center gap-2 font-mono text-[13px] font-medium">
-              <a href={p.live || p.repo} target="_blank" rel="noopener" class="border-b border-transparent hover:border-acc">{p.name}</a>{p.live && <span class="live-tag">LIVE</span>}
-            </h3>
-            <p class="m-0 text-[12.5px] leading-[1.5] text-mid">{p.blurb}</p>
-            <div class="flex flex-wrap gap-1.5">{p.tech.map(t => <span class="rounded-full border border-hair px-2 py-0.5 font-mono text-[9.5px] text-low">{t}</span>)}</div>
-            <span class="mt-auto flex items-center gap-3.5 pt-1 font-mono text-[11px]">
-              {p.live && <a href={p.live} target="_blank" rel="noopener" class="text-acc hover:underline">demo ↗</a>}
-              <a href={p.repo} target="_blank" rel="noopener" class="text-acc hover:underline">source ↗</a>
-              <span class="ml-auto text-low">{p.year}</span>
-            </span>
-          </div>
-        </article>
-      ))}
-    </div>
-    <div class="mt-6 border-t border-hair">
-      {moreRepos.map(p => (
-        <a href={p.repo} target="_blank" rel="noopener" class="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-hair px-2 py-3.5 transition hover:bg-[var(--accw)]">
-          <span class="font-mono text-[13.5px]">{p.name}</span>
-          <span class="flex-1 text-[13.5px] text-mid" style="min-width:180px">{p.blurb}</span>
-          <span class="font-mono text-[11px] text-low">{p.year} ↗</span>
-        </a>
-      ))}
-      <a href="https://github.com/sohaibsohail98?tab=repositories" target="_blank" rel="noopener" class="flex items-baseline gap-4 px-2 py-3.5 text-mid transition hover:bg-[var(--accw)]">
-        <span class="font-mono text-[13.5px]">+ 36 more</span>
-        <span class="flex-1 text-[13.5px]">The learning archive, 2019 to 2021. Left public on purpose.</span>
-        <span class="font-mono text-[11px] text-low">browse ↗</span>
-      </a>
-    </div>
-  </Section>
-
-  <Section id="cases" num="03" title="Case studies" intro="Platform work is mostly invisible, so here it is written up the way I would write a postmortem.">
-    <div class="border-t border-hair">
-      {cases.map((c, i) => (
-        <div class="border-b border-hair">
-          <button data-acc aria-expanded="false" class="flex w-full items-baseline gap-4 py-5 text-left transition hover:bg-[var(--accw)]">
-            <span class="font-mono text-[11px] text-low" style="flex:0 0 26px">0{i+1}</span>
-            <span class="flex-1"><b class="block text-[18.5px] font-semibold leading-[1.3] tracking-[-.025em]">{c.t}</b><span class="mt-1.5 block text-[14px] text-mid">{c.sum}</span></span>
-            <span class="font-mono text-[11.5px] text-acc" style="flex:0 0 auto">{c.m}</span>
-          </button>
-          <div class="acc-body">
-            <dl class="grid gap-x-[18px] gap-y-3.5 pb-6 pl-[42px] pr-2 [grid-template-columns:88px_1fr] max-[640px]:grid-cols-1">
-              {c.rows.map(([k, v]) => (<><dt class="font-mono text-[10.5px] uppercase tracking-[.11em] text-low">{k}</dt><dd class={'m-0 text-[15px] leading-[1.62] ' + (k === 'Result' ? 'text-ink' : 'text-mid')}>{v}</dd></>))}
-            </dl>
-          </div>
-        </div>
-      ))}
-    </div>
-  </Section>
-
-  <Section id="experience" num="04" title="Experience" intro="Four roles, all delivery-facing. The through-line is platform work other engineers depend on.">
-    <figure class="my-7 max-w-[60ch] border-l-2 border-acc pl-[22px]">
-      <blockquote class="m-0 font-serif text-[clamp(18px,2.3vw,23px)] italic leading-[1.45] tracking-[-.015em]">{testimonial.quote.split('45%')[0]}<strong class="font-sans text-[.92em] font-semibold not-italic">45%</strong>{testimonial.quote.split('45%')[1]}</blockquote>
-      <figcaption class="mt-3 font-mono text-[11.5px] text-low">{testimonial.who}</figcaption>
-    </figure>
-    <div class="border-t border-hair">
-      {roles.map(([y, c, d]) => (
-        <div class="flex flex-wrap items-baseline gap-x-[18px] gap-y-1 border-b border-hair py-4">
-          <span class="font-mono text-[11px] text-low" style="flex:0 0 64px">{y}</span>
-          <span class="font-semibold tracking-[-.015em]" style="flex:0 0 90px">{c}</span>
-          <span class="flex-1 text-[14.5px] leading-[1.55] text-mid" style="min-width:180px">{d}</span>
-        </div>
-      ))}
-    </div>
-  </Section>
-
-  <Section id="consult" num="05" title="Work with me" intro="I take a limited number of 1:1 sessions outside of work, for people who want a steer from someone a few steps further down the same road.">
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-      {consult.services.map(([t, d]) => (<div class="rounded-xl border border-hair bg-surf p-5"><h3 class="m-0 text-[15px] font-semibold">{t}</h3><p class="mt-2 text-[13.5px] leading-[1.55] text-mid">{d}</p></div>))}
-    </div>
-    <a href="https://calendly.com/techwithsohaib/chat-with-sohaib" target="_blank" rel="noopener" class="mt-6 inline-block rounded-full border border-ink bg-ink px-5 py-2.5 text-[14.5px] text-paper transition hover:opacity-85">Book a session →</a>
-  </Section>
-
-  <Section id="writing" num="06" title="Writing" intro="Three posts, each from a problem I hit at work rather than a tutorial rewritten from the docs.">
-    <div class="border-t border-hair">
-      {posts.map(p => (
-        <a href={p.url} target="_blank" rel="noopener" class="group flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-hair py-4">
-          <span class="font-mono text-[11px] text-low" style="flex:0 0 66px">{p.date}</span>
-          <span class="flex-1" style="min-width:0"><span class="text-[15.5px] leading-[1.45] group-hover:text-acc">{p.title}</span><span class="mt-1 block text-[13px] leading-[1.5] text-low">{p.blurb}</span></span>
-          <span class="font-mono text-[11px] text-low">{p.read} ↗</span>
-        </a>
-      ))}
-    </div>
-    <a href="https://linkedin.com/in/sohaibsohail" target="_blank" rel="noopener" class="mt-6 flex items-center gap-4 rounded-xl border border-hair bg-surf p-5 transition hover:border-acc">
-      <span class="grid h-11 w-11 flex-none place-items-center rounded-lg text-white" style="background:#0A66C2"><Icon name="linkedin" size={22} /></span>
-      <span class="flex-1"><span class="block text-[15px] font-medium">Latest from LinkedIn</span><span class="mt-0.5 block text-[13px] text-mid">I post about platform engineering, agents and the job hunt. Follow along or say hello.</span></span>
-      <span class="font-mono text-[12px] text-acc">Open ↗</span>
-    </a>
-  </Section>
-
-  <Section id="background" num="07" title="Background">
-    <div class="grid grid-cols-1 gap-8 md:grid-cols-[1fr_260px] md:items-start">
-      <div>
-        <p class="m-0 text-[16px] leading-[1.65] text-mid">{background.lead}</p>
-        <p class="mt-4 text-[16px] leading-[1.65] text-mid">{background.interests}</p>
-        <p class="mt-4 text-[16px] leading-[1.65] text-mid">{background.offClock}</p>
-      </div>
-      <img src="/img/sohaib-headshot.jpg" alt="Sohaib Sohail" width="260" height="364" loading="lazy" class="w-full max-w-[240px] rounded-xl border border-hair object-cover md:justify-self-end" />
-    </div>
-    <figure class="mt-8">
-      <img src="/img/sohaib-travel.jpg" alt="On a bamboo bridge in Bali" width="760" height="1013" loading="lazy" class="w-full rounded-xl border border-hair object-cover" style="max-height:420px;object-position:center 30%" />
-      <figcaption class="mt-2 font-mono text-[11px] text-low">Ubud, Bali · one of 25+ countries so far</figcaption>
-    </figure>
-    <div class="mt-12">
-      <span class="mb-4 block font-mono text-[10px] uppercase tracking-[.16em] text-low">Tech I reach for</span>
-      <div class="space-y-3">
-        {techStack.map(g => (
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="w-full font-mono text-[10.5px] text-low sm:w-[110px]">{g.group}</span>
-            {g.items.map(t => <span class="rounded-full border border-hair bg-surf px-3.5 py-1.5 text-[12.5px] transition hover:border-acc hover:text-acc">{t}</span>)}
-          </div>
-        ))}
-      </div>
-    </div>
-  </Section>
-
-  <footer id="contact" class="border-t border-hair py-16">
-    <div class="mx-auto max-w-content px-6">
-      <h3 class="m-0 max-w-[24ch] text-[clamp(25px,4.2vw,39px)] font-bold leading-[1.1] tracking-[-.036em]">If you'd rather read code than a CV, start with the SRE agent.</h3>
-      <p class="m-0 mt-4 max-w-[54ch] text-[17px] leading-[1.6] text-mid">I'm in Preston, working remotely or hybrid, and open to senior, staff or principal platform and AI roles. Quickest way in is to book a slot.</p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        {socials.map(s => (<a href={s.href} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-hair bg-surf px-4 py-2 text-[13px] text-mid transition hover:border-acc hover:text-ink"><Icon name={s.icon} size={15} />{s.label}</a>))}
-      </div>
-      <p class="mt-11 font-mono text-[11px] text-low">Sohaib Sohail · Preston, Lancashire · 2026</p>
-    </div>
-  </footer>
-
-  <style is:global>
-    .acc-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.2,.8,.2,1)}
-    .acc-body.open{max-height:600px}
-    @media(prefers-reduced-motion:reduce){.acc-body.open{max-height:none}}
-  </style>
+  <Hero />
+  <Console />
+  <Work />
+  <Cases />
+  <Experience />
+  <Consult />
+  <Writing />
+  <Background />
+  <Footer />
 </Base>

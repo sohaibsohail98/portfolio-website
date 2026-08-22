@@ -1,0 +1,28 @@
+---
+import { stats } from '../../data/site.js';
+import { intro } from '../../data/content.js';
+---
+<header class="px-6 pt-14 pb-12 md:pt-16">
+  <div class="mx-auto max-w-content">
+    <div class="mb-6 inline-flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-[.09em] text-[var(--live)] sm:text-[11.5px]">
+      <span class="h-[7px] w-[7px] rounded-full bg-[var(--live)]"></span>Open to work · senior, staff or principal · UK remote or hybrid
+    </div>
+    <h1 class="m-0 max-w-[20ch] text-[clamp(32px,5.4vw,60px)] font-bold leading-[1.04] tracking-[-.04em]">
+      I take <span class="font-serif italic text-acc">AI agents</span> from prototype to production, and build the platform they run on.
+    </h1>
+    <p class="mt-6 max-w-[60ch] text-[16px] leading-[1.62] text-mid sm:text-[17px]">{intro}</p>
+    <div class="mt-7 flex flex-wrap gap-3">
+      <a href="https://calendly.com/techwithsohaib/chat-with-sohaib" target="_blank" rel="noopener" class="rounded-full border border-ink bg-ink px-5 py-2.5 text-[14.5px] text-paper transition hover:opacity-85">Book a chat</a>
+      <a href="https://sre-agent.sohaibsohail.workers.dev" target="_blank" rel="noopener" class="rounded-full border border-ink px-5 py-2.5 text-[14.5px] transition hover:bg-surf2">Try my live agent</a>
+      <a href="/Sohaib-Sohail-CV.pdf" class="rounded-full border border-ink px-5 py-2.5 text-[14.5px] transition hover:bg-surf2">Download CV</a>
+    </div>
+    <dl class="mt-11 grid grid-cols-1 gap-x-8 border-t border-hair sm:grid-cols-3">
+      {stats.map(s => (
+        <div class="flex items-baseline gap-3 border-b border-hair py-4 sm:block sm:border-b-0 sm:py-5">
+          <dt class="order-2 text-[12.5px] leading-[1.4] text-low sm:order-none sm:mt-2 sm:max-w-[22ch]">{s.k}</dt>
+          <dd class="order-1 m-0 text-[27px] font-semibold leading-none tracking-[-.035em] [font-variant-numeric:tabular-nums] sm:order-none">{s.v}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</header>

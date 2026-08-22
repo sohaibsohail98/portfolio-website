@@ -1,0 +1,32 @@
+---
+import Section from '../Section.astro';
+import { techStack } from '../../data/site.js';
+import { background } from '../../data/content.js';
+---
+<Section id="background" num="07" title="Background">
+  <div class="grid grid-cols-1 gap-8 md:grid-cols-[1fr_240px] md:items-start">
+    <div>
+      <p class="m-0 text-[16px] leading-[1.65] text-mid">{background.lead}</p>
+      <p class="mt-4 text-[16px] leading-[1.65] text-mid">{background.interests}</p>
+      <p class="mt-4 text-[16px] leading-[1.65] text-mid">{background.offClock}</p>
+    </div>
+    <img src="/img/sohaib-headshot.jpg" alt="Sohaib Sohail" width="240" height="336" loading="lazy"
+      class="w-full max-w-[220px] rounded-xl border border-hair object-cover md:justify-self-end" />
+  </div>
+  <figure class="mt-8">
+    <img src="/img/sohaib-travel.jpg" alt="On a bamboo bridge in Ubud, Bali" width="1100" height="620" loading="lazy"
+      class="w-full rounded-xl border border-hair object-cover" style="max-height:440px;object-position:center 32%" />
+    <figcaption class="mt-2 font-mono text-[11px] text-low">Ubud, Bali · one of 25+ countries so far</figcaption>
+  </figure>
+  <div class="mt-12">
+    <span class="mb-4 block font-mono text-[10px] uppercase tracking-[.16em] text-low">Tech I reach for</span>
+    <div class="space-y-3">
+      {techStack.map(g => (
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="w-full font-mono text-[10.5px] text-low sm:w-[110px]">{g.group}</span>
+          {g.items.map(t => <span class="rounded-full border border-hair bg-surf px-3.5 py-1.5 text-[12.5px] transition hover:border-acc hover:text-acc">{t}</span>)}
+        </div>
+      ))}
+    </div>
+  </div>
+</Section>
