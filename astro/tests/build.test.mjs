@@ -27,7 +27,7 @@ test('live agent URL is the working one (dot, not hyphen)',
 test('live inspector linked', html.includes('mcp-inspector.sohaibsohail.workers.dev'));
 
 console.log('\nStructure: every section present');
-for (const id of ['proof','work','cases','experience','consult','writing','background','contact'])
+for (const id of ['proof','work','cases','experience','recommendations','consult','writing','linkedin-posts','background','contact'])
   test(`#${id}`, html.includes(`id="${id}"`));
 
 console.log('\nContent');
@@ -40,12 +40,14 @@ test('consulting section', html.includes('Work with me'));
 test('tech badges rendered', (html.match(/hover:border-acc hover:text-acc/g) || []).length > 10);
 
 console.log('\nCard rails');
-for (const id of ['rail-work-featured','rail-work-grid','rail-cases','rail-experience','rail-recommendations','rail-writing'])
+for (const id of ['rail-work-featured','rail-work-grid','rail-cases','rail-experience','rail-recommendations','rail-writing','rail-linkedin'])
   test(`${id} present`, html.includes(`id="${id}"`));
-test('rails are labelled regions', (html.match(/role="region"/g) || []).length >= 6);
+test('rails are labelled regions', (html.match(/role="region"/g) || []).length >= 7);
 test('rail prev/next controls wired', html.includes('data-rail-prev') && html.includes('data-rail-next'));
 test('case study dialogs present', (html.match(/<dialog/g) || []).length >= 4);
 test('case cards open their dialog', (html.match(/data-open-dialog/g) || []).length >= 4);
+test('linkedin embeds present and lazy-loaded', (html.match(/linkedin\.com\/embed\/feed\/update/g) || []).length >= 9
+  && html.includes('loading="lazy"'));
 
 console.log('\nSEO and social');
 for (const t of ['og:title','og:description','og:image','twitter:card'])

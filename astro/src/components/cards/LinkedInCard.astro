@@ -1,0 +1,20 @@
+---
+// One live LinkedIn post embed in the rail. `loading="lazy"` matters here
+// specifically: without it, all 9 iframes would start loading the moment
+// the page does, instead of only as each is scrolled near.
+import { swatch } from '../../data/palette.js';
+const { post, index } = Astro.props;
+const accent = swatch(index);
+---
+<div class:list={["rail-item-xl acc-top", `acc-top-${accent}`, "rail-card rail-card-h-xl overflow-hidden rounded-xl border border-hair bg-surf"]}>
+  <div class="rail-card-body">
+    <iframe
+      src={`https://www.linkedin.com/embed/feed/update/${post.urn}`}
+      height={post.h}
+      width="100%"
+      frameborder="0"
+      loading="lazy"
+      title="LinkedIn post"
+    ></iframe>
+  </div>
+</div>

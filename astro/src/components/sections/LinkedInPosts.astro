@@ -1,0 +1,12 @@
+---
+import Section from '../Section.astro';
+import CardRail from '../CardRail.astro';
+import LinkedInCard from '../cards/LinkedInCard.astro';
+import { linkedinPosts } from '../../data/linkedin.js';
+---
+<Section id="linkedin-posts" num="08" title="From LinkedIn"
+  intro="Live posts, pulled straight from LinkedIn's own embed — scroll a card to read the full thing.">
+  <CardRail id="rail-linkedin" ariaLabel="LinkedIn posts">
+    {linkedinPosts.map((post, i) => <LinkedInCard post={post} index={i} />)}
+  </CardRail>
+</Section>

@@ -46,6 +46,7 @@ body{background:var(--paper);color:var(--ink);transition:background .35s,color .
 .rail-card-h-sm{height:250px}
 .rail-card-h-md{height:340px}
 .rail-card-h-lg{height:420px}
+.rail-card-h-xl{height:520px}
 /* min-height:0 overrides the flex item's default auto min-size, which would
    otherwise let the card grow to fit its content instead of scrolling it. */
 .rail-card-body{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--hair2) transparent}
