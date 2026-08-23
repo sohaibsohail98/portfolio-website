@@ -1,0 +1,18 @@
+---
+// Full Problem / What I did / Result breakdown for one case study, shown in
+// a native <dialog> (opened by the matching CaseCard's data-open-dialog).
+const { c, index } = Astro.props;
+---
+<dialog id={`case-${index}`} class="case-dialog">
+  <div class="case-dialog-inner">
+    <button type="button" data-close-dialog aria-label="Close" class="case-dialog-close">×</button>
+    <span class="block font-mono text-[11px] text-acc">{c.m}</span>
+    <h3 class="mt-1.5 text-[19px] font-semibold leading-[1.3] tracking-[-.02em]">{c.t}</h3>
+    <dl class="mt-5 grid grid-cols-1 gap-x-[18px] gap-y-3.5 sm:[grid-template-columns:92px_1fr]">
+      {c.rows.map(([k, v]) => (<>
+        <dt class="font-mono text-[10.5px] uppercase tracking-[.11em] text-low">{k}</dt>
+        <dd class:list={["m-0 text-[15px] leading-[1.62]", k === 'Result' ? "text-ink" : "text-mid"]}>{v}</dd>
+      </>))}
+    </dl>
+  </div>
+</dialog>

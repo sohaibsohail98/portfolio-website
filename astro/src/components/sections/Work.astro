@@ -1,18 +1,24 @@
 ---
 import Section from '../Section.astro';
+import CardRail from '../CardRail.astro';
 import ProjectCard from '../ProjectCard.astro';
 import RepoRow from '../RepoRow.astro';
+import { swatch } from '../../data/palette.js';
 import { featured, grid, moreRepos } from '../../data/projects.js';
 ---
 <Section id="work" num="02" title="Selected work"
   intro="Two flagships, deployed and open to anyone, with the depth behind them. Then the rest.">
-  <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-    {featured.map(p => <ProjectCard p={p} big />)}
-  </div>
-  <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {grid.map(p => <ProjectCard p={p} />)}
-  </div>
-  <div class="mt-6 border-t border-hair">
+  <CardRail id="rail-work-featured" ariaLabel="Featured projects">
+    {featured.map((p, i) => (
+      <div class="rail-item-xl"><ProjectCard p={p} big accent={swatch(i)} /></div>
+    ))}
+  </CardRail>
+  <CardRail id="rail-work-grid" ariaLabel="More projects">
+    {grid.map((p, i) => (
+      <div class="rail-item-md"><ProjectCard p={p} accent={swatch(i)} /></div>
+    ))}
+  </CardRail>
+  <div class="mt-2 border-t border-hair">
     {moreRepos.map(p => <RepoRow p={p} />)}
     <a href="https://github.com/sohaibsohail98?tab=repositories" target="_blank" rel="noopener" class="flex flex-wrap items-baseline gap-x-4 gap-y-1 px-2 py-3.5 text-mid transition hover:bg-[var(--accw)]">
       <span class="font-mono text-[13.5px]">+ 36 more</span>

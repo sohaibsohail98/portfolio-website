@@ -1,0 +1,19 @@
+---
+// One role in the Experience rail. `role` is a [year, company, description,
+// highlight?] tuple, matching the shape already used in data/content.js.
+import { swatch } from '../../data/palette.js';
+const { role, index } = Astro.props;
+const [year, company, description, highlight] = role;
+const accent = swatch(index);
+---
+<article class:list={["rail-item-lg acc-top", `acc-top-${accent}`, "rail-card rail-card-h-md rounded-xl border border-hair bg-surf p-5 transition hover:-translate-y-1 hover:border-acc"]}>
+  <span class="font-mono text-[11px] text-low">{year}</span>
+  <h3 class="mt-1 text-[17px] font-semibold tracking-[-.02em]">{company}</h3>
+  <div class="rail-card-body mt-2 pr-1">
+    <p class="m-0 text-[14px] leading-[1.55] text-mid">{description}</p>
+  </div>
+  {highlight && (
+    <span class:list={["mt-3 inline-block self-start rounded-full border px-2.5 py-0.5 font-mono text-[10.5px]", `acc-text-${accent}`]}
+      style={`border-color:var(--r-${accent})`}>{highlight}</span>
+  )}
+</article>

@@ -39,6 +39,14 @@ test('LinkedIn card', html.includes('Latest from LinkedIn'));
 test('consulting section', html.includes('Work with me'));
 test('tech badges rendered', (html.match(/hover:border-acc hover:text-acc/g) || []).length > 10);
 
+console.log('\nCard rails');
+for (const id of ['rail-work-featured','rail-work-grid','rail-cases','rail-experience','rail-recommendations','rail-writing'])
+  test(`${id} present`, html.includes(`id="${id}"`));
+test('rails are labelled regions', (html.match(/role="region"/g) || []).length >= 6);
+test('rail prev/next controls wired', html.includes('data-rail-prev') && html.includes('data-rail-next'));
+test('case study dialogs present', (html.match(/<dialog/g) || []).length >= 4);
+test('case cards open their dialog', (html.match(/data-open-dialog/g) || []).length >= 4);
+
 console.log('\nSEO and social');
 for (const t of ['og:title','og:description','og:image','twitter:card'])
   test(`meta ${t}`, html.includes(t));

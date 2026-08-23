@@ -2,13 +2,17 @@
   --paper:#F7F5F1; --surf:#FFFFFF; --surf2:#EFECE5; --hair:rgba(22,21,26,.11); --hair2:rgba(22,21,26,.2);
   --ink:#16151A; --mid:#54515C; --low:#6B6774;
   --acc:#3A2FE0; --accw:rgba(58,47,224,.07); --add:#0F6B42; --del:#A83A24; --warm:#8A5A16; --live:#0F6B42;
+  /* Card-rail category accents. A small rotating palette used to tell cards
+     in a rail apart at a glance, without turning the site into a rainbow. */
+  --r-blue:#2A63D6; --r-violet:#7238D1; --r-teal:#0C8577; --r-amber:#A8700A; --r-rose:#B93966; --r-green:#28874C;
 }
 :root[data-theme="dark"]{
   --paper:#101017; --surf:#17171F; --surf2:#1D1D27; --hair:rgba(255,255,255,.09); --hair2:rgba(255,255,255,.18);
   --ink:#F0EEE9; --mid:#A9A5B2; --low:#918D9C;
   --acc:#9D96FF; --accw:rgba(157,150,255,.1); --add:#5BD394; --del:#FF9077; --warm:#E5B978; --live:#5BD394;
+  --r-blue:#7FAEFF; --r-violet:#B79CFF; --r-teal:#5AD6C4; --r-amber:#F0B84D; --r-rose:#FF93B8; --r-green:#79D89A;
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden} /* rails intentionally bleed to 100vw; this keeps that from ever causing a page-level horizontal scrollbar */
 body{background:var(--paper);color:var(--ink);transition:background .35s,color .35s}
 :focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:3px}
 /* Visible by default. Only animate when JS is present (html.js), so a blocked
@@ -19,9 +23,65 @@ body{background:var(--paper);color:var(--ink);transition:background .35s,color .
   background:var(--live);padding:2px 6px;border-radius:4px;vertical-align:2px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.reveal{opacity:1;transform:none}}
 
-/* Accordions (case studies + project details). Closed by default; JS toggles .open. */
+/* Accordions (project "+ details" expander). Closed by default; JS toggles .open. */
 .acc-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.2,.8,.2,1)}
 .acc-body.open{max-height:640px}
 [data-acc][aria-expanded="true"] .acc-plus{transform:rotate(45deg)}
 .acc-plus{display:inline-block;transition:transform .25s}
 @media(prefers-reduced-motion:reduce){.acc-body.open{max-height:none}}
+
+/* Card sizing for horizontal rails. Three widths cover every rail on the
+   site; pick by how much a card needs to say. min() keeps a card from
+   overflowing narrow phones while still peeking the next card in. */
+.rail-item-xl{flex:0 0 auto;width:min(88vw,380px)}
+.rail-item-lg{flex:0 0 auto;width:min(84vw,320px)}
+.rail-item-md{flex:0 0 auto;width:min(78vw,272px)}
+
+/* A rail card that keeps a fixed height so a row of cards lines up evenly
+   even when their text runs to different lengths; the body scrolls
+   internally instead of stretching the card. */
+.rail-card{display:flex;flex-direction:column}
+/* Fixed heights, picked per card type below, keep a row looking uniform
+   instead of every card stretching to match the single longest one. */
+.rail-card-h-sm{height:250px}
+.rail-card-h-md{height:340px}
+.rail-card-h-lg{height:420px}
+/* min-height:0 overrides the flex item's default auto min-size, which would
+   otherwise let the card grow to fit its content instead of scrolling it. */
+.rail-card-body{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--hair2) transparent}
+.rail-card-body::-webkit-scrollbar{width:4px}
+.rail-card-body::-webkit-scrollbar-thumb{background:var(--hair2);border-radius:4px}
+
+/* Rotating category accent, applied as a coloured top edge on rail cards. */
+.acc-top{border-top-width:3px;border-top-style:solid}
+.acc-top-blue{border-top-color:var(--r-blue)}
+.acc-top-violet{border-top-color:var(--r-violet)}
+.acc-top-teal{border-top-color:var(--r-teal)}
+.acc-top-amber{border-top-color:var(--r-amber)}
+.acc-top-rose{border-top-color:var(--r-rose)}
+.acc-top-green{border-top-color:var(--r-green)}
+.acc-dot-blue{background:var(--r-blue)}
+.acc-dot-violet{background:var(--r-violet)}
+.acc-dot-teal{background:var(--r-teal)}
+.acc-dot-amber{background:var(--r-amber)}
+.acc-dot-rose{background:var(--r-rose)}
+.acc-dot-green{background:var(--r-green)}
+.acc-text-blue{color:var(--r-blue)}
+.acc-text-violet{color:var(--r-violet)}
+.acc-text-teal{color:var(--r-teal)}
+.acc-text-amber{color:var(--r-amber)}
+.acc-text-rose{color:var(--r-rose)}
+.acc-text-green{color:var(--r-green)}
+
+/* Case study detail modal. Native <dialog>: free focus trap, Esc-to-close,
+   and a real top-layer stacking context, so this needs almost no JS. */
+dialog.case-dialog{border:1px solid var(--hair2);border-radius:18px;padding:0;
+  max-width:640px;width:min(92vw,640px);max-height:min(84vh,720px);
+  background:var(--surf);color:var(--ink);box-shadow:0 30px 80px -20px rgba(0,0,0,.35)}
+dialog.case-dialog::backdrop{background:rgba(10,10,14,.55);backdrop-filter:blur(2px)}
+.case-dialog-inner{position:relative;max-height:min(84vh,720px);overflow-y:auto;padding:30px 26px}
+.case-dialog-close{position:absolute;top:14px;right:14px;display:grid;place-items:center;
+  width:32px;height:32px;border-radius:9999px;border:1px solid var(--hair2);color:var(--mid);
+  font-size:18px;line-height:1;transition:border-color .2s,color .2s}
+.case-dialog-close:hover{border-color:var(--acc);color:var(--acc)}
+@media(prefers-reduced-motion:reduce){dialog.case-dialog{transition:none}}

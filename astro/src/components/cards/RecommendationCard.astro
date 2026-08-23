@@ -1,0 +1,20 @@
+---
+// One testimonial/recommendation in the rail. `rec` is { name?, title?,
+// context, quote, bold? }; `name` is omitted for the one anonymous
+// testimonial, and `bold` (a substring) highlights a standout figure like
+// "45%" inside the quote.
+import { swatch } from '../../data/palette.js';
+const { rec, index } = Astro.props;
+const accent = swatch(index);
+const [pre, post] = rec.bold ? rec.quote.split(rec.bold) : [rec.quote, null];
+---
+<figure class:list={["rail-item-xl acc-top", `acc-top-${accent}`, "rail-card rail-card-h-lg m-0 rounded-xl border border-hair bg-surf p-6"]}>
+  <blockquote class="rail-card-body m-0 pr-1 text-[15px] leading-[1.62] text-mid">
+    {pre}{rec.bold && <strong class="font-semibold text-ink">{rec.bold}</strong>}{post}
+  </blockquote>
+  <figcaption class="mt-4 border-t border-hair pt-4">
+    {rec.name && <span class="block text-[14.5px] font-semibold tracking-[-.015em]">{rec.name}</span>}
+    {rec.title && <span class="block text-[13px] text-low">{rec.title}</span>}
+    <span class:list={["mt-1 block font-mono text-[11px]", `acc-text-${accent}`]}>{rec.context}</span>
+  </figcaption>
+</figure>

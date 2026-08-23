@@ -1,0 +1,17 @@
+---
+// One blog post in the Writing rail.
+import { swatch } from '../../data/palette.js';
+const { p, index } = Astro.props;
+const accent = swatch(index);
+---
+<a href={p.url} target="_blank" rel="noopener"
+  class:list={["group rail-item-lg acc-top", `acc-top-${accent}`, "rail-card rail-card-h-sm rounded-xl border border-hair bg-surf p-5 transition hover:-translate-y-1 hover:border-acc"]}>
+  <span class="flex items-baseline justify-between gap-2 font-mono text-[11px] text-low">
+    <span>{p.date}</span><span>{p.read}</span>
+  </span>
+  <div class="rail-card-body mt-2 pr-1">
+    <span class="block text-[15.5px] font-medium leading-[1.4] group-hover:text-acc">{p.title}</span>
+    <span class="mt-1.5 block text-[13px] leading-[1.5] text-mid">{p.blurb}</span>
+  </div>
+  <span class:list={["mt-3 font-mono text-[11px]", `acc-text-${accent}`]}>Read ↗</span>
+</a>

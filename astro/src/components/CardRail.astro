@@ -1,0 +1,47 @@
+---
+// A horizontally-snapping row of cards that bleeds to the full viewport
+// width while keeping the first card aligned under the section title.
+// Works with zero JS: `.rail` is a plain native scroller with CSS
+// scroll-snap. The prev/next buttons and progress hairline underneath are
+// progressive enhancement, wired up in scripts/client.js by matching the
+// `id` prop against `data-rail-*` attributes.
+const { id, ariaLabel } = Astro.props;
+---
+<div class="rail-bleed">
+  <div class="rail-fade rail-fade-l" aria-hidden="true"></div>
+  <div class="rail-fade rail-fade-r" aria-hidden="true"></div>
+  <div id={id} data-rail={id} class="rail" role="region" aria-label={ariaLabel} tabindex="0">
+    <slot />
+  </div>
+</div>
+<div class="rail-controls">
+  <button type="button" data-rail-prev={id} aria-label={`Scroll ${ariaLabel} left`} class="rail-btn">‹</button>
+  <div class="rail-progress"><div data-rail-progress={id} class="rail-progress-fill"></div></div>
+  <button type="button" data-rail-next={id} aria-label={`Scroll ${ariaLabel} right`} class="rail-btn">›</button>
+</div>
+
+<style>
+  .rail-bleed{position:relative;left:50%;transform:translateX(-50%);width:100vw;overflow:hidden}
+  .rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    padding:4px max(24px, calc((100vw - 940px) / 2 + 24px)) 10px;
+    scroll-padding-inline:max(24px, calc((100vw - 940px) / 2 + 24px));
+    scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+  .rail > :global(*){scroll-snap-align:start}
+
+  .rail-fade{position:absolute;top:0;bottom:10px;width:min(64px,8vw);pointer-events:none;z-index:2}
+  .rail-fade-l{left:0;background:linear-gradient(to right,var(--paper),transparent)}
+  .rail-fade-r{right:0;background:linear-gradient(to left,var(--paper),transparent)}
+
+  .rail-controls{display:flex;align-items:center;gap:12px;margin-top:4px;padding:0 2px}
+  .rail-btn{display:grid;place-items:center;width:30px;height:30px;flex:none;border-radius:9999px;
+    border:1px solid var(--hair2);color:var(--mid);font-size:16px;line-height:1;background:none;
+    transition:border-color .2s,color .2s}
+  .rail-btn:hover{border-color:var(--acc);color:var(--acc)}
+  .rail-progress{position:relative;flex:1;height:2px;background:var(--hair);border-radius:2px;overflow:hidden}
+  .rail-progress-fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--acc);border-radius:2px}
+
+  /* Arrows and the progress hairline mainly help pointer/mouse users notice
+     and control the rail; touch users already feel it under their thumb. */
+  @media(hover:none){.rail-controls{display:none}.rail-fade{display:none}}
+</style>

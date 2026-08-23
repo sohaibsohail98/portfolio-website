@@ -1,22 +1,15 @@
 ---
 import Section from '../Section.astro';
+import CardRail from '../CardRail.astro';
+import PostCard from '../cards/PostCard.astro';
 import Icon from '../Icon.astro';
 import { posts } from '../../data/content.js';
 ---
 <Section id="writing" num="07" title="Writing"
   intro="Three posts, each from a problem I hit at work rather than a tutorial rewritten from the docs.">
-  <div class="border-t border-hair">
-    {posts.map(p => (
-      <a href={p.url} target="_blank" rel="noopener" class="group grid grid-cols-1 gap-x-4 gap-y-1 border-b border-hair py-4 sm:[grid-template-columns:66px_1fr_auto]">
-        <span class="font-mono text-[11px] text-low">{p.date}</span>
-        <span>
-          <span class="text-[15.5px] leading-[1.45] group-hover:text-acc">{p.title}</span>
-          <span class="mt-1 block text-[13px] leading-[1.5] text-low">{p.blurb}</span>
-        </span>
-        <span class="font-mono text-[11px] text-low">{p.read} ↗</span>
-      </a>
-    ))}
-  </div>
+  <CardRail id="rail-writing" ariaLabel="Blog posts">
+    {posts.map((p, i) => <PostCard p={p} index={i} />)}
+  </CardRail>
   <a href="https://linkedin.com/in/sohaibsohail" target="_blank" rel="noopener"
     class="mt-6 flex items-center gap-4 rounded-xl border border-hair bg-surf p-5 transition hover:border-acc">
     <span class="grid h-11 w-11 flex-none place-items-center rounded-lg text-white" style="background:#0A66C2"><Icon name="linkedin" size={22} /></span>

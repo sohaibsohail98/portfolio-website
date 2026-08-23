@@ -1,19 +1,12 @@
 ---
 import Section from '../Section.astro';
+import CardRail from '../CardRail.astro';
+import ExperienceCard from '../cards/ExperienceCard.astro';
 import { roles } from '../../data/content.js';
 ---
 <Section id="experience" num="04" title="Experience"
   intro="Four roles, all delivery-facing. The through-line is platform work other engineers depend on.">
-  <div class="border-t border-hair">
-    {roles.map(([y, c, d, hl]) => (
-      <div class="grid grid-cols-1 gap-x-[18px] gap-y-1 border-b border-hair py-4 sm:[grid-template-columns:64px_100px_1fr]">
-        <span class="font-mono text-[11px] text-low">{y}</span>
-        <span class="font-semibold tracking-[-.015em]">{c}</span>
-        <span>
-          <span class="block text-[14.5px] leading-[1.55] text-mid">{d}</span>
-          {hl && <span class="mt-2 inline-block rounded-full border border-acc px-2.5 py-0.5 font-mono text-[10.5px] text-acc">{hl}</span>}
-        </span>
-      </div>
-    ))}
-  </div>
+  <CardRail id="rail-experience" ariaLabel="Work experience">
+    {roles.map((role, i) => <ExperienceCard role={role} index={i} />)}
+  </CardRail>
 </Section>

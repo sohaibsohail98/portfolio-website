@@ -1,9 +1,11 @@
 ---
-// One project card. `big` gives the featured treatment with a details expander.
-const { p, big = false } = Astro.props;
+// One project card. `big` gives the featured treatment with a details
+// expander. `accent` (optional) adds the rotating rail top-border colour
+// used across the other card rails, so Work matches Cases/Experience/etc.
+const { p, big = false, accent = null } = Astro.props;
 const href = p.live || p.repo;
 ---
-<article class:list={["group flex flex-col overflow-hidden border border-hair bg-surf transition hover:-translate-y-1 hover:border-acc", big ? "rounded-2xl" : "rounded-xl"]}>
+<article class:list={["group flex flex-col overflow-hidden border border-hair bg-surf transition hover:-translate-y-1 hover:border-acc", big ? "rounded-2xl" : "rounded-xl", accent && "acc-top", accent && `acc-top-${accent}`]}>
   <a href={href} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="block overflow-hidden border-b border-hair bg-surf2">
     <img src={p.img} alt="" width="760" height="300" loading="lazy" decoding="async"
       class="w-full [aspect-ratio:760/300] object-cover object-top transition duration-500 group-hover:scale-[1.03]" />

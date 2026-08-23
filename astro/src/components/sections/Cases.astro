@@ -1,31 +1,14 @@
 ---
 import Section from '../Section.astro';
+import CardRail from '../CardRail.astro';
+import CaseCard from '../cards/CaseCard.astro';
+import CaseDialog from '../cards/CaseDialog.astro';
 import { cases } from '../../data/content.js';
 ---
 <Section id="cases" num="03" title="Case studies"
-  intro="Platform work is mostly invisible, so here it is written up the way I would write a postmortem.">
-  <div class="border-t border-hair">
-    {cases.map((c, i) => (
-      <div class="border-b border-hair">
-        <button data-acc aria-expanded="false" class="flex w-full items-baseline gap-3 py-5 text-left transition hover:bg-[var(--accw)] sm:gap-4">
-          <span class="font-mono text-[11px] text-low" style="flex:0 0 22px">0{i+1}</span>
-          <span class="flex-1">
-            <!-- meta sits ABOVE the title, so it never collides with the right edge on mobile -->
-            <span class="mb-1 block font-mono text-[11px] text-acc">{c.m}</span>
-            <b class="block text-[17px] font-semibold leading-[1.3] tracking-[-.025em] sm:text-[18.5px]">{c.t}</b>
-            <span class="mt-1.5 block text-[14px] text-mid">{c.sum}</span>
-          </span>
-          <span class="acc-plus mt-1 font-mono text-low" style="flex:0 0 auto">+</span>
-        </button>
-        <div class="acc-body">
-          <dl class="grid grid-cols-1 gap-x-[18px] gap-y-3.5 pb-6 pl-[34px] pr-2 sm:[grid-template-columns:92px_1fr]">
-            {c.rows.map(([k, v]) => (<>
-              <dt class="font-mono text-[10.5px] uppercase tracking-[.11em] text-low">{k}</dt>
-              <dd class:list={["m-0 text-[15px] leading-[1.62]", k === 'Result' ? "text-ink" : "text-mid"]}>{v}</dd>
-            </>))}
-          </dl>
-        </div>
-      </div>
-    ))}
-  </div>
+  intro="Platform work is mostly invisible, so here it is written up the way I would write a postmortem. Tap a card for the full breakdown.">
+  <CardRail id="rail-cases" ariaLabel="Case studies">
+    {cases.map((c, i) => <CaseCard c={c} index={i} />)}
+  </CardRail>
+  {cases.map((c, i) => <CaseDialog c={c} index={i} />)}
 </Section>

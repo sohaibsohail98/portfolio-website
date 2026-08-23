@@ -44,3 +44,33 @@ document.querySelectorAll('[data-acc]').forEach(btn => {
     btn.nextElementSibling?.classList.toggle('open', !open);
   });
 });
+
+// Card rails: prev/next buttons and the progress hairline are progressive
+// enhancement over the native CSS scroll-snap, matched to a rail by id.
+const reducedMotion = matchMedia('(prefers-reduced-motion:reduce)').matches;
+document.querySelectorAll('[data-rail]').forEach(rail => {
+  const id = rail.dataset.rail;
+  const step = () => rail.clientWidth * 0.86;
+  const scrollTo = dir => rail.scrollBy({ left: dir * step(), behavior: reducedMotion ? 'auto' : 'smooth' });
+  document.querySelector(`[data-rail-prev="${id}"]`)?.addEventListener('click', () => scrollTo(-1));
+  document.querySelector(`[data-rail-next="${id}"]`)?.addEventListener('click', () => scrollTo(1));
+  const fill = document.querySelector(`[data-rail-progress="${id}"]`);
+  if (!fill) return;
+  const updateProgress = () => {
+    const max = rail.scrollWidth - rail.clientWidth;
+    fill.style.width = max > 0 ? `${(rail.scrollLeft / max) * 100}%` : '100%';
+  };
+  rail.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+});
+
+// Case study cards open a native <dialog> with the full write-up. Backdrop
+// click and the close button both dismiss it; Esc and focus-trapping are
+// handled by the browser for free.
+document.querySelectorAll('[data-open-dialog]').forEach(btn => {
+  btn.addEventListener('click', () => document.getElementById(btn.dataset.openDialog)?.showModal());
+});
+document.querySelectorAll('dialog.case-dialog').forEach(dlg => {
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  dlg.querySelector('[data-close-dialog]')?.addEventListener('click', () => dlg.close());
+});
