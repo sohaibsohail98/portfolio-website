@@ -49,6 +49,15 @@ test('case cards open their dialog', (html.match(/data-open-dialog/g) || []).len
 test('linkedin embeds present', (html.match(/linkedin\.com\/embed\/feed\/update/g) || []).length >= 9);
 test('linkedin embeds have a working fallback link', (html.match(/View on LinkedIn/g) || []).length >= 9);
 
+console.log('\nSecurity headers');
+const headers = readFileSync(join(dist, '_headers'), 'utf8');
+test('CSP present', headers.includes('Content-Security-Policy'));
+// Regression guard: the CSP has no explicit frame-src, so it silently falls
+// back to default-src 'self' - which blocks every LinkedIn embed on the
+// page with no visible error, just a permanently blank card. This caught
+// exactly that bug once already.
+test('CSP allows LinkedIn to be framed (embeds need this)', headers.includes('frame-src') && headers.includes('linkedin.com'));
+
 console.log('\nSEO and social');
 for (const t of ['og:title','og:description','og:image','twitter:card'])
   test(`meta ${t}`, html.includes(t));
