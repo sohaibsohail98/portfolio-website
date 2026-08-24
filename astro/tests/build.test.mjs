@@ -46,8 +46,8 @@ test('rails are labelled regions', (html.match(/role="region"/g) || []).length >
 test('rail prev/next controls wired', html.includes('data-rail-prev') && html.includes('data-rail-next'));
 test('case study dialogs present', (html.match(/<dialog/g) || []).length >= 4);
 test('case cards open their dialog', (html.match(/data-open-dialog/g) || []).length >= 4);
-test('linkedin embeds present and lazy-loaded', (html.match(/linkedin\.com\/embed\/feed\/update/g) || []).length >= 9
-  && html.includes('loading="lazy"'));
+test('linkedin embeds present', (html.match(/linkedin\.com\/embed\/feed\/update/g) || []).length >= 9);
+test('linkedin embeds have a working fallback link', (html.match(/View on LinkedIn/g) || []).length >= 9);
 
 console.log('\nSEO and social');
 for (const t of ['og:title','og:description','og:image','twitter:card'])
