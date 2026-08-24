@@ -27,7 +27,7 @@ test('live agent URL is the working one (dot, not hyphen)',
 test('live inspector linked', html.includes('mcp-inspector.sohaibsohail.workers.dev'));
 
 console.log('\nStructure: every section present');
-for (const id of ['proof','work','cases','experience','recommendations','consult','writing','linkedin-posts','background','contact'])
+for (const id of ['proof','work','cases','experience','recommendations','consult','writing','background','contact'])
   test(`#${id}`, html.includes(`id="${id}"`));
 
 console.log('\nContent');
@@ -40,23 +40,17 @@ test('consulting section', html.includes('Work with me'));
 test('tech badges rendered', (html.match(/hover:border-acc hover:text-acc/g) || []).length > 10);
 
 console.log('\nCard rails');
-for (const id of ['rail-work-featured','rail-work-grid','rail-cases','rail-experience','rail-recommendations','rail-writing','rail-linkedin'])
+for (const id of ['rail-work-featured','rail-work-grid','rail-cases','rail-experience','rail-recommendations','rail-writing'])
   test(`${id} present`, html.includes(`id="${id}"`));
-test('rails are labelled regions', (html.match(/role="region"/g) || []).length >= 7);
+test('rails are labelled regions', (html.match(/role="region"/g) || []).length >= 6);
 test('rail prev/next controls wired', html.includes('data-rail-prev') && html.includes('data-rail-next'));
 test('case study dialogs present', (html.match(/<dialog/g) || []).length >= 4);
 test('case cards open their dialog', (html.match(/data-open-dialog/g) || []).length >= 4);
-test('linkedin embeds present', (html.match(/linkedin\.com\/embed\/feed\/update/g) || []).length >= 9);
-test('linkedin embeds have a working fallback link', (html.match(/View on LinkedIn/g) || []).length >= 9);
 
 console.log('\nSecurity headers');
 const headers = readFileSync(join(dist, '_headers'), 'utf8');
 test('CSP present', headers.includes('Content-Security-Policy'));
-// Regression guard: the CSP has no explicit frame-src, so it silently falls
-// back to default-src 'self' - which blocks every LinkedIn embed on the
-// page with no visible error, just a permanently blank card. This caught
-// exactly that bug once already.
-test('CSP allows LinkedIn to be framed (embeds need this)', headers.includes('frame-src') && headers.includes('linkedin.com'));
+test('CSP has no unused frame-src (LinkedIn embed rail was removed)', !headers.includes('frame-src'));
 
 console.log('\nSEO and social');
 for (const t of ['og:title','og:description','og:image','twitter:card'])

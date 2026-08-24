@@ -6,7 +6,6 @@ export const nav = [
   { href: '#recommendations', label: 'Recommendations' },
   { href: '#consult', label: 'Work with me' },
   { href: '#writing', label: 'Writing' },
-  { href: '#linkedin-posts', label: 'LinkedIn' },
   { href: '#background', label: 'About' },
 ];
 
