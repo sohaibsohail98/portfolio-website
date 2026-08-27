@@ -17,14 +17,15 @@ export const featured = [
   },
   {
     name: 'mcp-context-inspector', year: '2026',
-    live: 'https://mcp-inspector.sohaibsohail.workers.dev', repo: gh('mcp-context-inspector'),
+    live: 'https://ctxwindow.uk', repo: gh('mcp-context-inspector'),
     img: '/previews/mcp-inspector.jpg',
     tech: ['Python', 'MCP', 'DynamoDB', 'Firestore', 'OTLP'],
-    blurb: 'An MCP server that makes context window usage visible for any agent loop.',
+    blurb: 'An MCP server, shipped as ctxwindow, that makes context window usage visible for any agent loop.',
     facts: [
-      '300 automated tests, run on every push, no live cloud credentials needed',
+      '377 automated tests, run on every push, no live cloud credentials needed',
       'Three storage backends behind one data-access layer: SQLite, DynamoDB, Firestore',
       'Ingests OTLP telemetry from Claude Code and Copilot, with a precision-biased redaction pass',
+      'One command writes MCP + telemetry config into ~/.claude/settings.json, via a single-use setup token',
       'Full OAuth discovery (RFC 9728) plus Google sign-in, so any MCP client can connect',
     ],
   },

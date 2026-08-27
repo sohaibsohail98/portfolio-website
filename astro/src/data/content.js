@@ -23,7 +23,7 @@ export const cases = [
       ['Result', '8/8 eval scenarios passing. One has a false premise: ask which deployment broke checkout-api when none did, and a good answer traces it to the inventory-service dependency rather than inventing one.'],
     ] },
   { t: 'Showing what actually reached the model', m: 'Own project',
-    sum: 'An MCP server that makes context window usage visible for any agent loop.',
+    sum: 'An MCP server, shipped as ctxwindow, that makes context window usage visible for any agent loop.',
     rows: [
       ['Problem', 'Most agent observability re-shows you data your own interface already had. The genuinely invisible part is what entered context, and how much of it the user never sees.'],
       ['What I did', 'A drop in MCP server over Streamable HTTP with eight tools, so any client can connect, Claude Desktop included. Token counts are labelled estimates rather than exact usage, documented as a deliberate trade.'],
