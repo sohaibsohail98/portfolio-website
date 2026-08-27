@@ -16,11 +16,11 @@ export const featured = [
     ],
   },
   {
-    name: 'mcp-context-inspector', year: '2026',
+    name: 'ctxwindow', year: '2026',
     live: 'https://ctxwindow.uk', repo: gh('mcp-context-inspector'),
     img: '/previews/mcp-inspector.jpg',
     tech: ['Python', 'MCP', 'DynamoDB', 'Firestore', 'OTLP'],
-    blurb: 'An MCP server, shipped as ctxwindow, that makes context window usage visible for any agent loop.',
+    blurb: 'An MCP server that makes context window usage visible for any agent loop.',
     facts: [
       '377 automated tests, run on every push, no live cloud credentials needed',
       'Three storage backends behind one data-access layer: SQLite, DynamoDB, Firestore',
