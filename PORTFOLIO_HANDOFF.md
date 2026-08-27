@@ -120,7 +120,7 @@ assertion. Categories:
 ### Live demos (correct URLs — verify before changing)
 - SRE agent: `https://sre-agent.sohaibsohail.workers.dev` (DOT not hyphen; the
   hyphen form was a dead link that got shipped once — the test guards against it)
-- MCP inspector: `https://mcp-inspector.sohaibsohail.workers.dev`
+- MCP inspector (ctxwindow): `https://ctxwindow.uk`
 - Halal calc: `https://halalmortgagecalculator.org.uk`
 - Calendly: `https://calendly.com/techwithsohaib/chat-with-sohaib`
 - Medium: `https://medium.com/@sohaibsohailengineer`

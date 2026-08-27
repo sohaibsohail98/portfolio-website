@@ -24,7 +24,7 @@ test('scripted console is labelled', html.includes('Scripted walkthrough'));
 test('scripted disclaimer in prose', /scripted, not live/i.test(html));
 test('live agent URL is the working one (dot, not hyphen)',
   html.includes('sre-agent.sohaibsohail.workers.dev') && !html.includes('sre-agent-sohaibsohail'));
-test('live inspector linked', html.includes('mcp-inspector.sohaibsohail.workers.dev'));
+test('live inspector linked', html.includes('ctxwindow.uk'));
 
 console.log('\nStructure: every section present');
 for (const id of ['proof','work','cases','experience','recommendations','consult','writing','background','contact'])

@@ -16,8 +16,8 @@ export const featured = [
     ],
   },
   {
-    name: 'mcp-context-inspector', year: '2026',
-    live: 'https://mcp-inspector.sohaibsohail.workers.dev', repo: gh('mcp-context-inspector'),
+    name: 'ctxwindow', year: '2026',
+    live: 'https://ctxwindow.uk', repo: gh('mcp-context-inspector'),
     img: '/previews/mcp-inspector.jpg',
     tech: ['Python', 'MCP', 'DynamoDB', 'Firestore', 'OTLP'],
     blurb: 'An MCP server that makes context window usage visible for any agent loop.',
