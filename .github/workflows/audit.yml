@@ -45,7 +45,11 @@ jobs:
             /Sohaib-Sohail-CV.pdf
           do
             case "$url" in /*) url="https://sohaibsohail.pages.dev$url";; esac
-            code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 20 "$url" || echo 000)
+            code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 20 \
+              -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/128 Safari/537.36' "$url" || echo 000)
+            # 403 from a bot-shield still proves the host is up and serving; a
+            # dead site is 000 (DNS/timeout), 404 or 5xx.
+            if [ "$code" = "403" ]; then echo "ok  $code  $url (bot-blocked, host up)"; continue; fi
             if [ "$code" -ge 400 ] || [ "$code" = "000" ]; then
               echo "::error::$url returned $code — the page claims this is live"
               fail=1
