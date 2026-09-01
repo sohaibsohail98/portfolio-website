@@ -17,6 +17,7 @@ const { id, ariaLabel } = Astro.props;
 <div class="rail-controls">
   <button type="button" data-rail-prev={id} aria-label={`Scroll ${ariaLabel} left`} class="rail-btn">‹</button>
   <div class="rail-progress"><div data-rail-progress={id} class="rail-progress-fill"></div></div>
+  <span data-rail-count={id} class="rail-count" aria-live="polite"></span>
   <button type="button" data-rail-next={id} aria-label={`Scroll ${ariaLabel} right`} class="rail-btn">›</button>
 </div>
 
@@ -40,8 +41,11 @@ const { id, ariaLabel } = Astro.props;
   .rail-btn:hover{border-color:var(--acc);color:var(--acc)}
   .rail-progress{position:relative;flex:1;height:2px;background:var(--hair);border-radius:2px;overflow:hidden}
   .rail-progress-fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--acc);border-radius:2px}
+  .rail-count{flex:none;min-width:3.5ch;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11px;
+    font-variant-numeric:tabular-nums;color:var(--low)}
 
-  /* Arrows and the progress hairline mainly help pointer/mouse users notice
-     and control the rail; touch users already feel it under their thumb. */
-  @media(hover:none){.rail-controls{display:none}.rail-fade{display:none}}
+  /* Arrows only help pointer users. On touch the rail is swiped directly, but
+     the progress hairline and the "2 / 4" counter stay so it is obvious the
+     row continues past the edge of a narrow screen. */
+  @media(hover:none){.rail-btn{display:none}.rail-fade{display:none}.rail-controls{margin-top:8px}}
 </style>

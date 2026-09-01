@@ -5,7 +5,7 @@ import PostCard from '../cards/PostCard.astro';
 import Icon from '../Icon.astro';
 import { posts } from '../../data/content.js';
 ---
-<Section id="writing" num="07" title="Writing"
+<Section id="writing" num="06" title="Writing"
   intro="Three posts, each from a problem I hit at work rather than a tutorial rewritten from the docs.">
   <CardRail id="rail-writing" ariaLabel="Blog posts">
     {posts.map((p, i) => <PostCard p={p} index={i} />)}

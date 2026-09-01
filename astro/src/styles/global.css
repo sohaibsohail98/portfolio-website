@@ -33,9 +33,9 @@ body{background:var(--paper);color:var(--ink);transition:background .35s,color .
 /* Card sizing for horizontal rails. Three widths cover every rail on the
    site; pick by how much a card needs to say. min() keeps a card from
    overflowing narrow phones while still peeking the next card in. */
-.rail-item-xl{flex:0 0 auto;width:min(88vw,380px)}
-.rail-item-lg{flex:0 0 auto;width:min(84vw,320px)}
-.rail-item-md{flex:0 0 auto;width:min(78vw,272px)}
+.rail-item-xl{flex:0 0 auto;width:min(82vw,380px)}
+.rail-item-lg{flex:0 0 auto;width:min(78vw,320px)}
+.rail-item-md{flex:0 0 auto;width:min(72vw,272px)}
 
 /* A rail card that keeps a fixed height so a row of cards lines up evenly
    even when their text runs to different lengths; the body scrolls

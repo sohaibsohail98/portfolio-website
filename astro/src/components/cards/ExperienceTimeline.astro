@@ -1,0 +1,35 @@
+---
+// Vertical timeline of roles, shown on small screens instead of the
+// horizontal rail. The section a recruiter reads first should never need a
+// swipe to see the whole career; on desktop the rail has room to breathe.
+// `roles` is the same [year, company, description, highlight?] tuple list.
+import { swatch } from '../../data/palette.js';
+const { roles } = Astro.props;
+---
+<ol class="m-0 list-none border-l border-hair pl-5">
+  {roles.map(([year, company, description, highlight], i) => {
+    const accent = swatch(i);
+    // First sentence is the job title ("Senior AI Platform Engineer."); it
+    // stays visible, the rest folds behind the same expander the project
+    // cards use so four roles fit on one phone screen.
+    const cut = description.indexOf('. ') + 1;
+    const title = description.slice(0, cut);
+    const body = description.slice(cut).trim();
+    return (
+      <li class="relative pb-7 last:pb-0">
+        <span class:list={["absolute -left-[25px] top-[6px] h-[9px] w-[9px] rounded-full ring-4 ring-[var(--paper)]", `acc-dot-${accent}`]} aria-hidden="true"></span>
+        <span class="font-mono text-[11px] text-low">{year}</span>
+        <h3 class="mt-0.5 text-[16.5px] font-semibold tracking-[-.02em]">{company}</h3>
+        <p class="mt-0.5 text-[13.5px] text-mid">{title}</p>
+        {highlight && (
+          <span class:list={["mt-2 inline-block rounded-full border px-2.5 py-0.5 font-mono text-[10.5px]", `acc-text-${accent}`]}
+            style={`border-color:var(--r-${accent})`}>{highlight}</span>
+        )}
+        <div class="mt-2">
+          <button data-acc aria-expanded="false" class="flex items-center gap-1.5 font-mono text-[11.5px] text-acc"><span class="acc-plus">+</span> details</button>
+          <div class="acc-body"><p class="mt-2 text-[13.5px] leading-[1.55] text-mid">{body}</p></div>
+        </div>
+      </li>
+    );
+  })}
+</ol>

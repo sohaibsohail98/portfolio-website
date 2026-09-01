@@ -11,16 +11,16 @@ import { intro } from '../../data/content.js';
       I take <span class="font-serif italic text-acc">AI agents</span> from prototype to production, and build the platform they run on.
     </h1>
     <p class="mt-6 max-w-[60ch] text-[16px] leading-[1.62] text-mid sm:text-[17px]">{intro}</p>
-    <div class="mt-7 flex flex-wrap gap-3">
-      <a href="https://calendly.com/techwithsohaib/chat-with-sohaib" target="_blank" rel="noopener" class="rounded-full border border-ink bg-ink px-5 py-2.5 text-[14.5px] text-paper transition hover:opacity-85">Book a chat</a>
-      <a href="https://sre-agent.sohaibsohail.workers.dev" target="_blank" rel="noopener" class="rounded-full border border-ink px-5 py-2.5 text-[14.5px] transition hover:bg-surf2">Try my live agent</a>
-      <a href="/Sohaib-Sohail-CV.pdf" class="rounded-full border border-ink px-5 py-2.5 text-[14.5px] transition hover:bg-surf2">Download CV</a>
+    <div class="hero-ctas mt-7 flex flex-wrap gap-3">
+      <a href="https://sre-agent.sohaibsohail.workers.dev" target="_blank" rel="noopener" data-cta="primary" class="w-full rounded-full border border-ink bg-ink px-5 py-3 text-center text-[14.5px] text-paper transition hover:opacity-85 sm:w-auto sm:py-2.5">Try the live agent</a>
+      <a href="https://calendly.com/techwithsohaib/chat-with-sohaib" target="_blank" rel="noopener" class="flex-1 rounded-full border border-hair2 px-5 py-3 text-center text-[14.5px] text-mid transition hover:border-ink hover:text-ink sm:flex-none sm:py-2.5">Book a chat</a>
+      <a href="/Sohaib-Sohail-CV.pdf" class="flex-1 rounded-full border border-hair2 px-5 py-3 text-center text-[14.5px] text-mid transition hover:border-ink hover:text-ink sm:flex-none sm:py-2.5">Download CV</a>
     </div>
-    <dl class="mt-11 grid grid-cols-1 gap-x-8 border-t border-hair sm:grid-cols-3">
+    <dl class="mt-10 grid grid-cols-3 gap-x-4 border-t border-hair sm:gap-x-8">
       {stats.map(s => (
-        <div class="flex items-baseline gap-3 border-b border-hair py-4 sm:block sm:border-b-0 sm:py-5">
-          <dt class="order-2 text-[12.5px] leading-[1.4] text-low sm:order-none sm:mt-2 sm:max-w-[22ch]">{s.k}</dt>
-          <dd class="order-1 m-0 text-[27px] font-semibold leading-none tracking-[-.035em] [font-variant-numeric:tabular-nums] sm:order-none">{s.v}</dd>
+        <div class="py-4 sm:py-5">
+          <dd class="m-0 text-[22px] font-semibold leading-none tracking-[-.035em] [font-variant-numeric:tabular-nums] sm:text-[27px]">{s.v}</dd>
+          <dt class="mt-1.5 text-[11.5px] leading-[1.4] text-low sm:mt-2 sm:max-w-[22ch] sm:text-[12.5px]">{s.k}</dt>
         </div>
       ))}
     </dl>

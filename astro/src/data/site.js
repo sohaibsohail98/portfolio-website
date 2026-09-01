@@ -4,9 +4,9 @@ export const nav = [
   { href: '#cases', label: 'Case studies' },
   { href: '#experience', label: 'Experience' },
   { href: '#recommendations', label: 'Recommendations' },
-  { href: '#consult', label: 'Work with me' },
   { href: '#writing', label: 'Writing' },
   { href: '#background', label: 'About' },
+  { href: '#consult', label: 'Mentoring' },
 ];
 
 export const socials = [
@@ -18,9 +18,9 @@ export const socials = [
 ];
 
 export const stats = [
-  { v: '200+', k: 'projects hosted on the AI platform I helped build' },
-  { v: '3', k: 'clouds in production, Terraform for each' },
-  { v: '2024', k: 'Google Award, GenAI Excellence' },
+  { v: '200+', k: 'projects on the AI platform I helped build' },
+  { v: '50+', k: 'LLM deployments automated, 30 min to 2' },
+  { v: '8/8', k: 'agent eval scenarios passing, one a false premise' },
 ];
 
 export const techStack = [
@@ -33,4 +33,4 @@ export const techStack = [
 
 export const certifications = ['Terraform Associate', 'Azure Fundamentals', 'AWS Certified Cloud Practitioner'];
 
-export const education = { degree: 'BSc Communications and Media Studies', school: 'Brunel University of London' };
+export const education = { degree: 'BSc Communications and Media Studies', school: 'Brunel University London' };

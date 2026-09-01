@@ -2,11 +2,17 @@
 import Section from '../Section.astro';
 import CardRail from '../CardRail.astro';
 import ExperienceCard from '../cards/ExperienceCard.astro';
+import ExperienceTimeline from '../cards/ExperienceTimeline.astro';
 import { roles } from '../../data/content.js';
 ---
 <Section id="experience" num="04" title="Experience"
   intro="Four roles, all delivery-facing. The through-line is platform work other engineers depend on.">
-  <CardRail id="rail-experience" ariaLabel="Work experience">
-    {roles.map((role, i) => <ExperienceCard role={role} index={i} />)}
-  </CardRail>
+  <div class="md:hidden" data-experience-timeline>
+    <ExperienceTimeline roles={roles} />
+  </div>
+  <div class="hidden md:block">
+    <CardRail id="rail-experience" ariaLabel="Work experience">
+      {roles.map((role, i) => <ExperienceCard role={role} index={i} />)}
+    </CardRail>
+  </div>
 </Section>

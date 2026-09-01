@@ -1,4 +1,4 @@
-export const intro = `Salam, and hi, I'm Sohaib. I've spent the last few years doing platform engineering at some big firms, and I've reached the point where I'd rather build my own things than only ship other people's. Most people consume what gets built. I want to be on the other side of that, making things that work and showing other engineers how I got there.`;
+export const intro = `Salam, and hi, I'm Sohaib. Five and a half years of platform engineering in regulated firms, the last two running LLM platforms and agents in production: quota governance, region failover, guardrails, and an eval harness that can block a release. The unglamorous half that makes AI products survivable.`;
 
 export const cases = [
   { t: 'The guardrail was refusing real questions', m: 'LLM platform, production',

@@ -47,6 +47,30 @@ test('rail prev/next controls wired', html.includes('data-rail-prev') && html.in
 test('case study dialogs present', (html.match(/<dialog/g) || []).length >= 4);
 test('case cards open their dialog', (html.match(/data-open-dialog/g) || []).length >= 4);
 
+console.log('\nHero and hiring narrative');
+test('primary CTA is the live agent', /data-cta="primary"[^>]*>Try the live agent/.test(html) || /Try the live agent/.test(html) && /data-cta="primary"/.test(html));
+test('exactly one filled hero CTA', (html.match(/hero-ctas[\s\S]*?<\/dl>/)[0].match(/bg-ink/g) || []).length === 1);
+test('stats are outcomes, not a year', html.includes('50+') && html.includes('8/8') && !html.includes('Google Award'));
+test('intro no longer reads as leaving', !/rather build my own things/.test(html));
+test('consulting section sits after background', html.indexOf('id="background"') < html.indexOf('id="consult"') && html.indexOf('id="consult"') < html.indexOf('id="contact"'));
+test('section numbers follow the new order', /num.*?06.*Writing/s.test(html) || (html.indexOf('>06<') < html.indexOf('>07<') && html.indexOf('>07<') < html.indexOf('>08<')));
+test('footer headline links to the agent', /start with <a[^>]*sre-agent[^>]*>the SRE agent<\/a>/.test(html));
+
+console.log('\nNavigation');
+test('inline desktop nav present', /id="topnav"[^>]*md:flex/.test(html));
+test('inline nav has every section', (html.match(/id="topnav"[\s\S]*?<\/nav>/)[0].match(/<a /g) || []).length === 8);
+test('burger hidden on desktop', /id="burger"[^>]*md:hidden/.test(html));
+test('hair2 border utility compiles', css.includes('.border-hair2'));
+
+console.log('\nMobile');
+test('experience timeline rendered below md', /data-experience-timeline/.test(html) && /class="md:hidden" data-experience-timeline/.test(html));
+test('experience rail hidden below md', /class="hidden md:block">\s*<div class="rail-bleed"/.test(html) || (html.indexOf('hidden md:block') < html.indexOf('id="rail-experience"')));
+test('rail position counters present', (html.match(/data-rail-count/g) || []).length >= 6);
+test('touch keeps progress hairline (only buttons hidden)', /hover:none\)\{\.rail-btn[^{]*\{display:none\}/.test(css) && !/hover:none\)\{\.rail-controls[^{]*\{display:none/.test(css));
+test('hero CTAs stack full-width on mobile', /w-full[^"]*sm:w-auto/.test(html.match(/hero-ctas[\s\S]*?<\/div>/)[0]));
+test('timeline roles are collapsible', (html.match(/data-experience-timeline[\s\S]*?<\/ol>/)[0].match(/data-acc/g) || []).length === 4);
+test('Brunel name corrected', html.includes('Brunel University London') && !html.includes('University of London'));
+
 console.log('\nSecurity headers');
 const headers = readFileSync(join(dist, '_headers'), 'utf8');
 test('CSP present', headers.includes('Content-Security-Policy'));

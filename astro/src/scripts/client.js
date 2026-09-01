@@ -55,11 +55,22 @@ document.querySelectorAll('[data-rail]').forEach(rail => {
   document.querySelector(`[data-rail-prev="${id}"]`)?.addEventListener('click', () => scrollTo(-1));
   document.querySelector(`[data-rail-next="${id}"]`)?.addEventListener('click', () => scrollTo(1));
   const fill = document.querySelector(`[data-rail-progress="${id}"]`);
-  if (!fill) return;
+  const count = document.querySelector(`[data-rail-count="${id}"]`);
+  if (!fill && !count) return;
+  const items = rail.children;
   const updateProgress = () => {
     const max = rail.scrollWidth - rail.clientWidth;
-    fill.style.width = max > 0 ? `${(rail.scrollLeft / max) * 100}%` : '100%';
+    if (fill) fill.style.width = max > 0 ? `${(rail.scrollLeft / max) * 100}%` : '100%';
+    if (count && items.length) {
+      // Position of the snapped card: distance scrolled over one card pitch
+      // (card width + gap), clamped so the last card reads as n/n.
+      const first = items[0];
+      const pitch = first.offsetWidth + (items[1] ? items[1].offsetLeft - first.offsetLeft - first.offsetWidth : 0);
+      const idx = Math.min(items.length, Math.round(rail.scrollLeft / Math.max(pitch, 1)) + 1);
+      count.textContent = `${idx} / ${items.length}`;
+    }
   };
+  window.addEventListener('resize', updateProgress, { passive: true });
   rail.addEventListener('scroll', updateProgress, { passive: true });
   updateProgress();
 });
