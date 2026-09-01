@@ -21,8 +21,8 @@ jobs:
       - name: Lighthouse
         uses: treosh/lighthouse-ci-action@v12
         with:
-          urls: https://portfolio-website.pages.dev/
-          budgetPath: ./.lighthouse-budget.json
+          urls: https://sohaibsohail.pages.dev/
+          configPath: ./.lighthouserc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
 
@@ -30,17 +30,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # The page claims two demos are live. If either worker goes down, the
-      # claim becomes false, so this fails loudly rather than quietly.
+      # The page claims these are live. If any goes down the claim becomes
+      # false, so this fails loudly rather than quietly.
       - name: Check live demo links resolve
         run: |
           fail=0
           for url in \
+            https://sohaibsohail.pages.dev \
             https://sre-agent.sohaibsohail.workers.dev \
-            https://mcp-inspector.sohaibsohail.workers.dev \
+            https://ctxwindow.uk \
+            https://halalmortgagecalculator.org.uk \
             https://github.com/sohaibsohail98/sre-investigation-agent \
-            https://github.com/sohaibsohail98/mcp-context-inspector
+            https://github.com/sohaibsohail98/mcp-context-inspector \
+            /Sohaib-Sohail-CV.pdf
           do
+            case "$url" in /*) url="https://sohaibsohail.pages.dev$url";; esac
             code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 20 "$url" || echo 000)
             if [ "$code" -ge 400 ] || [ "$code" = "000" ]; then
               echo "::error::$url returned $code — the page claims this is live"

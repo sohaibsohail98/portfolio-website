@@ -39,7 +39,7 @@ astro/
     pages/index.astro      28 lines: imports the sections and lists render order
     scripts/client.js      theme toggle, hamburger sidebar, scroll reveals, accordions
     styles/global.css      CSS design tokens (light/dark) + a few base rules
-  tests/build.test.mjs     34 assertions run after every build
+  tests/build.test.mjs     59 assertions run after every build
   public/                  previews/, img/, CV pdfs, og.png, _headers, _redirects
 ```
 

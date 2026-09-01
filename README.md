@@ -2,6 +2,12 @@
 
 Personal portfolio. Astro + Tailwind, static output, deployed to Cloudflare Pages.
 
+## CI
+
+- `deploy.yml` — build + tests on every push and PR; deploys `main` to Cloudflare Pages.
+- `audit.yml` — after each deploy and weekly: Lighthouse against the live URL
+  (`.lighthouserc.json` thresholds) and a link check on every URL the page claims is live.
+
 ## Structure
 
 Every section is its own component. Content is data, kept separate from markup.
@@ -16,15 +22,17 @@ astro/
     components/
       Icon.astro          social/nav SVGs
       Section.astro       shared section shell (number, title, intro)
+      CardRail.astro      horizontal scroll-snap rail (arrows, progress, n / N counter)
       ProjectCard.astro   one card, `big` variant adds the details expander
       RepoRow.astro       compact text row
       AgentConsole.astro  the scripted console island
+      cards/              Case, Experience, ExperienceTimeline (mobile), Post, Recommendation
       sections/
-        Hero, Console, Work, Cases, Experience,
-        Consult, Writing, Background, Footer     one file each
-    layouts/Base.astro   head, sticky nav, slide-in sidebar
+        Hero, Console, Work, Cases, Experience, Recommendations,
+        Writing, Background, Consult, Footer     one file each
+    layouts/Base.astro   head, sticky nav (inline links md+, sidebar below)
     pages/index.astro    assembles the sections, nothing else
-    scripts/client.js    theme toggle, sidebar, reveals, accordions
+    scripts/client.js    theme toggle, sidebar, reveals, accordions, rails, dialogs
     styles/global.css    design tokens + a few base rules
   tests/build.test.mjs   post-build assertions
   public/                previews, photos, CV, og.png
